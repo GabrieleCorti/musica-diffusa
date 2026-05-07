@@ -31,8 +31,11 @@ const { maxContentWidth } = Astro.props;
   </head>
   <body>
     <Nav />
-    <main class="max-content-w">
-      <slot />
+    <main>
+      <div class="page-content">
+        <slot />
+      </div>
+      <slot name="full-width" />
     </main>
     <Footer />
   </body>
