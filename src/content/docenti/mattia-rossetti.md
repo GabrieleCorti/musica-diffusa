@@ -2,7 +2,7 @@
 nome: "Mattia Rossetti"
 strumento: "Batteria"
 titolo: "Docente"
-proPic: "/src/assets/docenti/matteo-de-buglio.jpg"
+proPic: "/src/assets/docenti/mattia-rossetti.jpg"
 ---
 Classe 2004, è un batterista e percussionista residente a Pessano con Bornago (MI).
 Dopo aver conseguito il diploma di maturità al liceo musicale B. Zucchi di Monza, prosegue gli studi di batteria pop rock sotto la guida del M° Stefano Re e di percussioni classiche sotto la guida del M° Luca Casiraghi, entrambi corsi di laurea presso il conservatorio Gaetano Donizetti di Bergamo.
