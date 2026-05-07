@@ -30,16 +30,13 @@ const instrumentPic = images[pic];
 
 <style>
   .content {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
     padding: 8rem 0 4rem 0;
   }
   .title {
     font-size: 0.75rem;
   }
   h1 {
-    font-size: 6rem;
+    font-size: 3.75rem;
     margin-bottom: 2rem;
   }
   .description {
@@ -55,6 +52,35 @@ const instrumentPic = images[pic];
     width: 380px;
     height: 380px;
     box-shadow: 0px 0px 40px 32px #be233a52;
+    margin-top: 4rem;
+  }
+
+  .responsive-btn {
+    width: 100%;
+    text-align: center;
+  }
+
+  @media screen and (min-width: 768px) {
+    .content {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 8rem 0 4rem 0;
+    }
+    h1 {
+      font-size: 6rem;
+      margin-bottom: 2rem;
+    }
+
+    .img-wrapper {
+      margin-top: 0rem;
+    }
+  }
+
+  @media (min-width: 640px) {
+    .responsive-btn {
+      width: fit-content;
+    }
   }
 </style>
 <GlobalStyles />
@@ -64,7 +90,7 @@ const instrumentPic = images[pic];
       <p class="title">CORSO</p>
       <h1>{titolo}</h1>
       <p class="description">{body}</p>
-      <Button>Contattaci</Button>
+      <Button class="responsive-btn">Contattaci</Button>
     </div>
     <div class="img-wrapper">
       <Image
