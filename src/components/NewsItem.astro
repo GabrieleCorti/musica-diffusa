@@ -1,0 +1,93 @@
+---
+import MapPin from "@lucide/astro/icons/map-pin";
+import Calendar from "@lucide/astro/icons/calendar";
+import Clock from "@lucide/astro/icons/clock-5";
+import { Image } from "astro:assets";
+interface Props {
+  title: string;
+  content: string;
+  location: string;
+  date: string;
+  time: string;
+  src: ImageMetadata;
+  alt: string;
+}
+const { title, content, date, location, time, ...imgProps } = Astro.props;
+---
+
+<style>
+  .news-item {
+    gap: 2.5rem;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+  }
+  .img-wrapper {
+    max-width: 200px;
+    aspect-ratio: 1;
+    border-radius: 1000px;
+    border: 1px solid var(--color-primary);
+    overflow: hidden;
+    width: min-content;
+  }
+  h4 {
+    font-size: 1.875rem;
+  }
+  .content {
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    gap: 1rem;
+  }
+  .meta {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+  }
+  .meta-data {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .meta-data > p {
+    font-size: 0.875rem;
+    font-weight: 500;
+  }
+  .meta-icon {
+    width: 13px;
+    height: 13px;
+  }
+
+  @media screen and (min-width: 768px) {
+    h4 {
+      font-size: 2.25rem;
+    }
+    .news-item {
+      display: grid;
+      grid-template-columns: 200px 1fr;
+    }
+  }
+</style>
+<div class="news-item">
+  <div class="img-wrapper">
+    <Image {...imgProps} height={210} width={210} />
+  </div>
+  <div class="content">
+    <div class="meta">
+      <div class="meta-data">
+        <MapPin class="meta-icon icon-primary" />
+        <p>{location}</p>
+      </div>
+      <div class="meta-data">
+        <Calendar class="meta-icon icon-primary" />
+        <p>{date}</p>
+      </div>
+      <div class="meta-data">
+        <Clock class="meta-icon icon-primary" />
+        <p>{time}</p>
+      </div>
+    </div>
+    <h4>{title}</h4>
+    <p class="max-text-w" set:html={content} />
+  </div>
+</div>

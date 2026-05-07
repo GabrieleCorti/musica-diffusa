@@ -1,0 +1,54 @@
+---
+import Link from "../components/Link.astro";
+import { Image } from "astro:assets";
+import logo from "../assets/logo.png";
+
+const currentYear = new Date().getFullYear();
+const pathname = Astro.url.pathname;
+---
+
+<style>
+  .top-nav {
+    position: fixed;
+    z-index: 1000;
+    top: 0;
+    right: 0;
+    left: 0;
+    width: 100%;
+    padding: 1rem 1.5rem;
+    backdrop-filter: blur(4px);
+    border-bottom: 0.5px solid var(--color-border);
+  }
+  .nav-content {
+    display: flex;
+    align-items: center;
+    margin: auto;
+  }
+  .link-list {
+    margin-left: auto;
+    display: flex;
+    gap: 2rem;
+    list-style: none;
+  }
+  a {
+    font-weight: 500;
+  }
+</style>
+<nav class="top-nav">
+  <div class="max-content-w nav-content">
+    <Image
+      fetchpriority="high"
+      loading="eager"
+      src={logo}
+      alt="Musica Diffusa logo"
+      height={48}
+      width={48}
+    />
+    <ul class="link-list">
+      <li><Link active={pathname ===`/news/${currentYear}`} href={`/news/${currentYear}`}>News</Link></li>
+      <li><Link>Statuto</Link></li>
+      <li><Link href="/team">Il Team</Link></li>
+      <li><Link>Corsi</Link></li>
+    </ul>
+  </div>
+</nav>

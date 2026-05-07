@@ -1,0 +1,107 @@
+---
+import Link from "./Link.astro";
+import Image from "astro/components/Image.astro";
+import logo from "../assets/logo.png";
+---
+
+<style>
+  footer {
+    padding: 4rem 0;
+    background-color: var(--color-bg-light);
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+  }
+  li:has(.bottom-nav-title) {
+    display: flex;
+    align-items: center;
+  }
+  .bottom-nav {
+    margin: auto;
+  }
+  .bottom-nav-list {
+    display: grid;
+    grid-template-columns: repeat(4, max-content);
+    grid-template-rows: repeat(7, fit-content);
+    column-gap: 1.5rem;
+    row-gap: 0.5rem;
+  }
+  .nav-main-title-container {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+  }
+  .bottom-nav-title {
+    font-size: 1rem;
+    font-weight: 600;
+    font-family: var(--text-body);
+  }
+  .main-title {
+    font-size: 1.25rem;
+  }
+  .bottom-nav-link {
+    font-size: 0.875rem;
+    font-weight: 400;
+  }
+  .rights-container {
+    padding-top: 2rem;
+    text-align: center;
+    border-top: 1px solid var(--color-base);
+    max-width: var( --max-content-w);
+    margin: auto;
+  }
+  .rights {
+    font-size: 0.875rem;
+  }
+</style>
+<footer>
+  <nav class="bottom-nav">
+    <ul class="bottom-nav-list">
+      <li class="nav-main-title-container">
+        <Image src={logo} alt="Musica Diffusa logo" height={32} width={32} />
+        <h4 class="bottom-nav-title main-title">Musica Diffusa</h4>
+      </li>
+      <li><h4 class="bottom-nav-title">Navigazione</h4></li>
+      <li><h4 class="bottom-nav-title">Corsi</h4></li>
+      <li><h4 class="bottom-nav-title">Contatti</h4></li>
+
+      <li></li>
+      <li><Link class="bottom-nav-link">News</Link></li>
+      <li><Link class="bottom-nav-link">Basso</Link></li>
+      <li>
+        <p class="bottom-nav-link">associazionemusicadiffusa@gmail.com</p>
+      </li>
+
+      <li></li>
+      <li><Link class="bottom-nav-link">Statuto</Link></li>
+      <li><Link class="bottom-nav-link">Batteria</Link></li>
+      <li><p class="bottom-nav-link">+39 3392044740</p></li>
+
+      <li></li>
+      <li><Link class="bottom-nav-link">Il Team</Link></li>
+      <li><Link class="bottom-nav-link">Canto</Link></li>
+       <li>
+        <p class="bottom-nav-link">
+          Via Provinciale, 15, 20042 - Pessano con Bornago (MI)
+        </p>
+      </li>
+
+      <li></li>
+      <li><Link class="bottom-nav-link">Corsi</Link></li>
+      <li><Link class="bottom-nav-link">Chitarra</Link></li>
+
+      <li></li>
+      <li></li>
+      <li></li>
+      <li><Link class="bottom-nav-link">Tastiera</Link></li>
+
+      <li></li>
+      <li></li>
+      <li></li>
+      <li><Link class="bottom-nav-link">Corso GORDON</Link></li>
+    </ul>
+  </nav>
+  <div class="rights-container">
+    <p class="rights">© 2026 Musica Diffusa - P.IVA n. 13068160962 - Tutti i diritti riservati.</p>
+  </div>
+</footer>

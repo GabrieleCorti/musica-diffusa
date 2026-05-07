@@ -1,0 +1,172 @@
+---
+import { getCollection } from "astro:content";
+import Left from "@lucide/astro/icons/chevron-left";
+import Right from "@lucide/astro/icons/chevron-right";
+
+import BaseLayout from "../../layouts/PageLayout.astro";
+import NewsItem from "../../components/NewsItem.astro";
+import Chip from "../../components/ChipLink.astro";
+import test from "../../assets/news/test.png";
+
+export async function getStaticPaths() {
+  const allNews = await getCollection("news");
+  const years = [...new Set(allNews.map((entry) => entry.id.split("/")[0]))];
+
+  const getDataFromYear = (selectedYear: string) =>
+    allNews
+      .filter((entry) => entry.id.startsWith(`${selectedYear}/`))
+      .sort((a, b) => {
+        const dateA = new Date(a.data.data).getTime();
+        const dateB = new Date(b.data.data).getTime();
+        return dateB - dateA;
+      })
+      .map(({ data, body }) => ({ data, body }));
+
+  const getYearsPagination = (selectedYear: string) => {
+    const orderedYears = [
+      ...new Set(allNews.map((entry) => entry.id.split("/")[0])),
+    ].sort((a, b) => Number(a) - Number(b));
+
+    const currentIndex = orderedYears.indexOf(selectedYear);
+
+    const groupStart = Math.floor(currentIndex / 3) * 3;
+    const groupEnd = groupStart + 3;
+
+    const visibleYears = orderedYears.slice(groupStart, groupEnd);
+
+    let prevYear = null;
+
+    if (currentIndex > 0) {
+      const isFirstVisible = currentIndex === groupStart;
+
+      if (isFirstVisible) {
+        const prevGroupEnd = groupStart - 1;
+        if (prevGroupEnd >= 0) {
+          prevYear = years[prevGroupEnd];
+        }
+      } else {
+        prevYear = years[currentIndex - 1];
+      }
+    }
+
+    let nextYear = null;
+
+    if (currentIndex < years.length - 1) {
+      const isLastVisible = currentIndex === groupEnd - 1;
+      if (isLastVisible) {
+        const nextGroupStart = groupStart + 3;
+        if (nextGroupStart < years.length) {
+          nextYear = years[nextGroupStart];
+        }
+      } else {
+        nextYear = years[currentIndex + 1];
+      }
+    }
+    return {
+      nextYear,
+      prevYear,
+      visibleYears,
+    };
+  };
+
+  return years.map((year) => ({
+    params: { year },
+    props: {
+      ...getYearsPagination(year),
+      filteredNews: getDataFromYear(year),
+    },
+  }));
+}
+
+const pathname = Astro.url.pathname;
+const { filteredNews, nextYear, prevYear, visibleYears } = Astro.props;
+---
+
+<style>
+  h1 {
+    font-size: 3.75rem;
+  }
+  .second-title {
+    font-size: 0.875rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+  }
+  .title-container {
+    padding-top: 8rem;
+    padding-bottom: 4rem;
+  }
+  .news-item {
+    padding: 3rem 0;
+    border-bottom: 1px solid var(--color-border);
+  }
+  .news-navigation {
+    margin: 2rem 0;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+  ul:has(.pagination) {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  @media screen and (min-width: 786px) {
+    h1 {
+      font-size: 6rem;
+    }
+  }
+</style>
+<BaseLayout maxContentWidth>
+  <div class="title-container">
+    <p class="second-title">AGGIORNAMENTI</p>
+    <h1>News & eventi</h1>
+  </div>
+  <ul>
+    {
+      filteredNews.map((item) => (
+        <li class="news-item">
+          <NewsItem
+            src={test}
+            alt={`Locandina evento ${item.data.titolo}`}
+            title={item.data.titolo}
+            content={item.body}
+            date={item.data.data}
+            location={item.data.luogo}
+            time={item.data.ora}
+          />
+        </li>
+      ))
+    }
+  </ul>
+  <nav class="news-navigation">
+    <ul>
+      <li class="pagination">
+        <Chip
+          aria-disabled={!Boolean(prevYear)}
+          icon
+          href={`/news/${prevYear}`}
+        >
+          <Left width={22} height={22} />
+        </Chip>
+      </li>
+      {
+        visibleYears.map((y) => (
+          <li class="pagination">
+            <Chip active={pathname === `/news/${y}`} href={`/news/${y}`}>
+              {y}
+            </Chip>
+          </li>
+        ))
+      }
+      <li class="pagination">
+        <Chip
+          aria-disabled={!Boolean(nextYear)}
+          icon
+          href={`/news/${nextYear}`}
+        >
+          <Right width={22} height={22} />
+        </Chip>
+      </li>
+    </ul>
+  </nav>
+</BaseLayout>

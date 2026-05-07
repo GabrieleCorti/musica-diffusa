@@ -1,0 +1,44 @@
+---
+import Facebook from "@lucide/astro/icons/facebook";
+import Instagram from "@lucide/astro/icons/instagram";
+import Youtube from "@lucide/astro/icons/youtube";
+import Site from "@lucide/astro/icons/globe";
+import type { HTMLAttributes } from "astro/types";
+
+interface Props extends HTMLAttributes<"a"> {
+  type: "yt" | "fb" | "www" | "ig";
+}
+
+const { type, class: className, ...rest } = Astro.props;
+---
+
+<style>
+  .icon-link {
+    display: block;
+    border-radius: 999px;
+    border: 1px solid var(--color-border);
+    color: var(--color-base);
+    padding: 0.35rem;
+    aspect-ratio: square;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: color 170ms ease-in-out;
+    transition: color;
+  }
+  .logo {
+    width: 1rem;
+    height: 1rem;
+  }
+  .icon-link:hover {
+    border-color: var(--color-primary);
+    color: var(--color-primary);
+    transition: color 170ms ease-in-out;
+  }
+</style>
+<a {...rest} class:list={["icon-link", rest]}>
+  {type === "fb" && <Facebook class="logo" />}
+  {type === "ig" && <Instagram class="logo" />}
+  {type === "www" && <Site class="logo" />}
+  {type === "yt" && <Youtube class="logo" />}
+</a>
