@@ -7,9 +7,9 @@ export interface Props {
   proPic: ImageMetadata;
   href?: string;
   instrument: string;
+  class?: string;
 }
-const { name, proPic, href, instrument } = Astro.props;
-
+const { name, proPic, href, instrument, class: customClass } = Astro.props;
 ---
 
 <style>
@@ -41,7 +41,7 @@ const { name, proPic, href, instrument } = Astro.props;
     font-size: 1.125rem;
     color: var(--color-secondary);
   }
-   .musical-note {
+  .musical-note {
     color: var(--color-primary);
     width: 12px;
     aspect-ratio: square;
@@ -54,7 +54,7 @@ const { name, proPic, href, instrument } = Astro.props;
   }
 </style>
 <a class="teacher-link" href={href}>
-  <div class="img-wrapper">
+  <div class:list={["img-wrapper", customClass]}>
     <Image
       src={proPic}
       alt={`Foto profilo di ${name}`}

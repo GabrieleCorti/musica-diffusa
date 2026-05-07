@@ -9,6 +9,7 @@ const images = import.meta.glob<{ default: ImageMetadata }>(
   { eager: true },
 );
 console.log(images);
+
 ---
 
 <style>
@@ -24,6 +25,7 @@ console.log(images);
     flex-direction: column;
     align-items: center;
     text-align: center;
+    z-index: 10;
   }
   .second-title {
     font-size: 0.875rem;
@@ -33,6 +35,35 @@ console.log(images);
   h1 {
     font-size: 10rem;
   }
+  .scattered {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    margin-bottom: 10rem;
+  }
+  .scattered > :global(.teacher-link) {
+    position: absolute;
+    transform: translate(-50%, -50%);
+
+  }
+  .scattered > :global(.teacher-link:nth-child(1)) { top: 18%; left: 18%; }
+  .scattered > :global(.teacher-link:nth-child(2)) { top: 12%; left: 72%; }
+  .scattered > :global(.teacher-link:nth-child(3)) { top: 55%; left: 8%;  }
+  .scattered > :global(.teacher-link:nth-child(4)) { top: 48%; left: 58%; }
+  .scattered > :global(.teacher-link:nth-child(5)) { top: 80%; left: 25%; }
+  .scattered > :global(.teacher-link:nth-child(6)) { top: 75%; left: 80%; }
+  .scattered > :global(.teacher-link:nth-child(7)) { top: 38%; left: 88%; }
+  .scattered > :global(.teacher-link:nth-child(8)) { top: 95%; left: 52%; }
+
+  .scattered > :global(.teacher-link) {
+    opacity: 0;
+    translate: 0 20px;
+    transition: opacity 0.9s ease, translate 0.9s ease;
+  }
+  .scattered > :global(.teacher-link.visible) {
+    opacity: 1;
+    translate: 0 0;
+  }
 </style>
 <BaseLayout>
   <div class="content">
@@ -40,8 +71,8 @@ console.log(images);
       <p class="second-title">INCONTRA</p>
       <h1>IL TEAM</h1>
     </div>
-    {
-      teachers.map(({ slug, data: { nome, strumento, proPic } }) => {
+    <div class="scattered">
+      {teachers.map(({ slug, data: { nome, strumento, proPic } }) => {
         return (
           <TeamBaloon
             name={nome}
@@ -50,7 +81,30 @@ console.log(images);
             href={`/team/${slug}`}
           />
         );
-      })
-    }
+      })}
+    </div>
   </div>
+
+<script>
+  const links = document.querySelectorAll<HTMLElement>(".scattered .teacher-link");
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          const el = entry.target as HTMLElement;
+          const index = Number(el.dataset.index);
+          setTimeout(() => el.classList.add("visible"), index * 120);
+          observer.unobserve(el);
+        }
+      });
+    },
+    { threshold: 0.1 }
+  );
+
+  links.forEach((link, i) => {
+    link.dataset.index = String(i);
+    observer.observe(link);
+  });
+</script>
 </BaseLayout>
