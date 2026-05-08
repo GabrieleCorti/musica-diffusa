@@ -2,9 +2,8 @@
 import Link from "../components/Link.astro";
 import { Image } from "astro:assets";
 import logo from "../assets/logo.png";
-
-const currentYear = new Date().getFullYear();
 const pathname = Astro.url.pathname;
+const currentYear = new Date().getFullYear();
 ---
 
 <style>
@@ -45,10 +44,10 @@ const pathname = Astro.url.pathname;
       width={48}
     />
     <ul class="link-list">
-      <li><Link active={pathname ===`/news/${currentYear}`} href={`/news/${currentYear}`}>News</Link></li>
-      <li><Link>Statuto</Link></li>
-      <li><Link href="/team">Il Team</Link></li>
-      <li><Link>Corsi</Link></li>
+      <li><Link active={pathname.includes("/news")} href={`/news/${currentYear}`}>News</Link></li>
+      <li><Link href={`/statuto`}>Statuto</Link></li>
+      <li><Link active={pathname.includes("/team")} href={`/team`}>Il Team</Link></li>
+      <li><Link active={pathname.includes("/courses")} href={`/courses`}>Corsi</Link></li>
     </ul>
   </div>
 </nav>

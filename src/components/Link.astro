@@ -14,9 +14,6 @@ const { active, class: className, ...attrs } = Astro.props;
   .active {
     color: var(--color-primary);
   }
-  a:visited {
-    color: var(--color-base);
-  }
 </style>
 <a class:list={["text-link", { active: Boolean(active) }, className]} {...attrs}
   ><slot /></a
