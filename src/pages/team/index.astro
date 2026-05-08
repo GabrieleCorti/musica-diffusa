@@ -1,15 +1,14 @@
 ---
 import { getCollection } from "astro:content";
-import BaseLayout from "../../layouts/PageLayout.astro";
+import HaloLayout from "../../layouts/PageLayoutWithHalo.astro";
 import TeamBaloon from "../../components/TeamBaloon.astro";
+import Cover from "../../components/Cover.astro";
 
 const teachers = await getCollection("docenti");
 const images = import.meta.glob<{ default: ImageMetadata }>(
   "/src/assets/docenti/*.{jpg,jpeg,png,webp,avif}",
   { eager: true },
 );
-console.log(images);
-
 ---
 
 <style>
@@ -34,7 +33,14 @@ console.log(images);
     transform: translate(-50%, -50%);
     width: 180vmin;
     height: 180vmin;
-    background: radial-gradient(circle at center,transparent 0%,transparent 0%,color-mix(in srgb,var(--color-primary) 25%,transparent) 34%,color-mix(in srgb,var(--color-primary) 10%,transparent) 63%,transparent 70%);
+    background: radial-gradient(
+      circle at center,
+      transparent 0%,
+      transparent 0%,
+      color-mix(in srgb, var(--color-primary) 25%, transparent) 34%,
+      color-mix(in srgb, var(--color-primary) 10%, transparent) 63%,
+      transparent 70%
+    );
     z-index: 0;
     pointer-events: none;
   }
@@ -47,6 +53,14 @@ console.log(images);
     font-size: 10rem;
     font-family: var(--text-body);
   }
+  h1::after {
+    content: "";
+    display: block;
+    width: 25%;
+    height: 1px;
+    background-color: var(--color-primary);
+    transform: translate(150%);
+  }
   .scattered {
     position: relative;
     width: 100%;
@@ -57,52 +71,80 @@ console.log(images);
   .scattered > :global(.teacher-link) {
     position: absolute;
     transform: translate(-50%, -50%);
-
   }
-  .scattered > :global(.teacher-link:nth-child(1)) { top: 18%; left: 18%; }
-  .scattered > :global(.teacher-link:nth-child(2)) { top: 12%; left: 72%; }
-  .scattered > :global(.teacher-link:nth-child(3)) { top: 55%; left: 8%;  }
-  .scattered > :global(.teacher-link:nth-child(4)) { top: 48%; left: 58%; }
-  .scattered > :global(.teacher-link:nth-child(5)) { top: 80%; left: 25%; }
-  .scattered > :global(.teacher-link:nth-child(6)) { top: 75%; left: 80%; }
-  .scattered > :global(.teacher-link:nth-child(7)) { top: 38%; left: 88%; }
-  .scattered > :global(.teacher-link:nth-child(8)) { top: 95%; left: 52%; }
+  .scattered > :global(.teacher-link:nth-child(1)) {
+    top: 18%;
+    left: 18%;
+  }
+  .scattered > :global(.teacher-link:nth-child(2)) {
+    top: 12%;
+    left: 72%;
+  }
+  .scattered > :global(.teacher-link:nth-child(3)) {
+    top: 55%;
+    left: 8%;
+  }
+  .scattered > :global(.teacher-link:nth-child(4)) {
+    top: 48%;
+    left: 58%;
+  }
+  .scattered > :global(.teacher-link:nth-child(5)) {
+    top: 82%;
+    left: 23%;
+  }
+  .scattered > :global(.teacher-link:nth-child(6)) {
+    top: 75%;
+    left: 82%;
+  }
+  .scattered > :global(.teacher-link:nth-child(7)) {
+    top: 38%;
+    left: 88%;
+  }
+  .scattered > :global(.teacher-link:nth-child(8)) {
+    top: 95%;
+    left: 52%;
+  }
 
   .scattered > :global(.teacher-link) {
     opacity: 0;
     translate: 0 20px;
-    transition: opacity 0.9s ease, translate 0.9s ease;
+    transition:
+      opacity 0.9s ease,
+      translate 0.9s ease;
   }
   .scattered > :global(.teacher-link.visible) {
     opacity: 1;
     translate: 0 0;
   }
 </style>
-<BaseLayout>
-  <div slot="full-width" class="title-glow"></div>
+<HaloLayout>
   <div class="content">
     <div class="title-container">
       <p class="second-title">INCONTRA</p>
       <h1>IL TEAM</h1>
     </div>
     <div class="scattered">
-      {teachers.map(({ slug, data: { nome, strumento, proPic } }) => {
-        return (
-          <TeamBaloon
-            name={nome}
-            proPic={images[proPic].default}
-            instrument={strumento}
-            href={`/team/${slug}`}
-          />
-        );
-      })}
+      {
+        teachers.map(({ slug, data: { nome, strumento, proPic } }) => {
+          return (
+            <TeamBaloon
+              name={nome}
+              proPic={images[proPic].default}
+              instrument={strumento}
+              href={`/team/${slug}`}
+            />
+          );
+        })
+      }
     </div>
   </div>
-
+  <Cover slot="full-width-halo" title="Vuoi studiare con noi?">Contattaci</Cover
+  >
+</HaloLayout>
 <script>
   const titleContainer = document.querySelector<HTMLElement>(".title-container");
   const titleGlow = document.querySelector<HTMLElement>(".title-glow");
-  const footer = document.querySelector<HTMLElement>("footer");
+  const cover = document.querySelector<HTMLElement>(".cover");
 
   let pinned = false;
 
@@ -132,9 +174,9 @@ console.log(images);
   }
 
   function onScroll() {
-    if (!footer) return;
-    const footerTop = footer.getBoundingClientRect().top;
-    if (footerTop <= window.innerHeight) {
+    if (!cover) return;
+    const coverTop = cover.getBoundingClientRect().top;
+    if (coverTop <= window.innerHeight) {
       pin();
     } else {
       unpin();
@@ -165,4 +207,3 @@ console.log(images);
     observer.observe(link);
   });
 </script>
-</BaseLayout>
