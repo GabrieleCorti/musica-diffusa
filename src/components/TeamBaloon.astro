@@ -17,9 +17,7 @@ const { name, proPic, href, instrument, class: customClass } = Astro.props;
     display: flex;
     flex-direction: column;
     align-items: center;
-    text-align: center;
-    gap: 1rem;
-    /* transition: transform 0.3s ease, box-shadow 0.3s ease; */
+   justify-items: center;
   }
   .img-wrapper {
     max-width: 200px;
@@ -36,20 +34,17 @@ const { name, proPic, href, instrument, class: customClass } = Astro.props;
     font-size: 1.25rem;
     font-weight: 600;
     color: var(--color-primary);
+    font-family: var(--text-body);
   }
   p {
     font-size: 1.125rem;
     color: var(--color-secondary);
+    display: flex;
+    align-items: center;
   }
   .musical-note {
     color: var(--color-primary);
-    width: 12px;
-    aspect-ratio: square;
-  }
-
-  .musical-note {
-    color: var(--color-primary);
-    width: 12px;
+    width: 16px;
     aspect-ratio: square;
   }
 </style>
