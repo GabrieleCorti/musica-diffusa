@@ -100,6 +100,50 @@ console.log(images);
   </div>
 
 <script>
+  const titleContainer = document.querySelector<HTMLElement>(".title-container");
+  const titleGlow = document.querySelector<HTMLElement>(".title-glow");
+  const footer = document.querySelector<HTMLElement>("footer");
+
+  let pinned = false;
+
+  function pin() {
+    if (pinned || !titleContainer || !titleGlow) return;
+    pinned = true;
+    const scrollY = window.scrollY;
+    const centerY = scrollY + window.innerHeight / 2;
+    const centerX = document.documentElement.clientWidth / 2;
+    for (const el of [titleContainer, titleGlow]) {
+      el.style.position = "absolute";
+      el.style.top = `${centerY}px`;
+      el.style.left = `${centerX}px`;
+      el.style.transform = "translate(-50%, -50%)";
+    }
+  }
+
+  function unpin() {
+    if (!pinned || !titleContainer || !titleGlow) return;
+    pinned = false;
+    for (const el of [titleContainer, titleGlow]) {
+      el.style.position = "";
+      el.style.top = "";
+      el.style.left = "";
+      el.style.transform = "";
+    }
+  }
+
+  function onScroll() {
+    if (!footer) return;
+    const footerTop = footer.getBoundingClientRect().top;
+    if (footerTop <= window.innerHeight) {
+      pin();
+    } else {
+      unpin();
+    }
+  }
+
+  window.addEventListener("scroll", onScroll, { passive: true });
+  onScroll();
+
   const links = document.querySelectorAll<HTMLElement>(".scattered .teacher-link");
 
   const observer = new IntersectionObserver(
