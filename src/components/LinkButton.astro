@@ -28,6 +28,10 @@ const { type = "primary", class: className, ...rest } = Astro.props;
   .foreground:hover {
     box-shadow: 0 0 16px 2px rgba(255, 255, 255, 0.6);
   }
+  .primary:hover {
+    box-shadow: 0 0 16px 2px
+      color-mix(in srgb, var(--color-primary) 60%, transparent);
+  }
 </style>
 <a
   class:list={[
