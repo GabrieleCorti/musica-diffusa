@@ -1,12 +1,39 @@
 ---
-import BaseLayout from '../layouts/PageLayout.astro'
+import BaseLayout from "../layouts/PageLayout.astro";
+import CourseHero from "../components/CourseHero.astro";
+import { getCollection } from "astro:content";
+const images = import.meta.glob<{ default: ImageMetadata }>(
+  "/src/assets/docenti/*.{jpg,jpeg,png,webp,avif}",
+  { eager: true },
+);
+const courses = await getCollection("corsi");
+const orderedCourses = courses.sort((a, b) => {
+  const aIsGordon = a.data.titolo.toLocaleLowerCase().includes("gordon");
+  const bIsGordon = b.data.titolo.toLocaleLowerCase().includes("gordon");
+  if (aIsGordon && !bIsGordon) {
+    return 1;
+  }
+  if (!aIsGordon && bIsGordon) {
+    return -1;
+  }
+  return a.data.titolo.localeCompare(b.data.titolo);
+});
 ---
+
 <BaseLayout>
-	<h1>Astro</h1>
+  <h1>Astro</h1>
   <ul>
-        <li>1</li>
-        <li>2</li>
-        <li>3</li><li>3</li><li>3</li><li>3</li><li>3</li><li>3</li><li>3</li><li>3</li><li>3</li><li>3</li><li>3</li><li>3</li><li>3</li><li>3</li><li>3</li><li>3</li><li>3</li><li>3</li><li>3</li><li>3</li>
-      </ul>
+    {
+      orderedCourses.map((course) => (
+        <li>
+          <CourseHero
+            title={course.data.titolo}
+            image={images[course.data.pic].default}
+            isGordon={course.data.titolo.toLocaleLowerCase().includes("gordon")}
+          />
+        </li>
+      ))
+    }
+  </ul>
   <div style="height: 4000px;"></div>
 </BaseLayout>

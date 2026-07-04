@@ -3,10 +3,11 @@ import { Image } from "astro:assets";
 
 export interface Props {
   title: string;
-  image: { default: ImageMetadata };
+  image: ImageMetadata;
+  isGordon?: boolean;
 }
 
-const { title, image } = Astro.props;
+const { title, image, isGordon } = Astro.props;
 ---
 
 <style>
@@ -21,15 +22,19 @@ const { title, image } = Astro.props;
   }
 
   .label {
-    font-size: 0.75rem;
+    font-size: 1.25rem;
     color: var(--color-base);
-    margin-bottom: 0.25rem;
     font-family: var(--text-body);
     text-transform: capitalize;
+    font-weight: 300;
+  }
+
+  .label-gordon {
+    font-weight: 400;
   }
 
   .title {
-    font-size: 2.5rem;
+    font-size: 4rem;
     font-family: var(--text-serif);
     color: var(--color-foreground);
     font-weight: 700;
@@ -38,8 +43,8 @@ const { title, image } = Astro.props;
   .img-wrapper {
     overflow: hidden;
     border-radius: 999px;
-    width: 96px;
-    height: 96px;
+    width: 290px;
+    height: 290px;
     flex-shrink: 0;
   }
 
@@ -54,8 +59,9 @@ const { title, image } = Astro.props;
   <div>
     <p class="label">Corso</p>
     <h2 class="title">{title}</h2>
+    {isGordon && <p class="label label-gordon">con Luca Mauri</p>}
   </div>
   <div class="img-wrapper">
-    <Image src={image.default} alt={`Foto del corso di ${title}`} width={96} height={96} />
+    <Image src={image} alt={`Foto del corso di ${title}`} width={290} height={290} />
   </div>
 </div>
