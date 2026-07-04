@@ -4,6 +4,7 @@ import CourseHero from "../components/CourseHero.astro";
 import LocationsSection from "../components/LocationsSection.astro";
 import Cover from "../components/Cover.astro";
 import { getCollection } from "astro:content";
+import { WHATSAPP_LINK } from "../config/contact";
 const images = import.meta.glob<{ default: ImageMetadata }>(
   "/src/assets/docenti/*.{jpg,jpeg,png,webp,avif}",
   { eager: true },
@@ -21,6 +22,7 @@ const orderedCourses = courses.sort((a, b) => {
   return a.data.titolo.localeCompare(b.data.titolo);
 });
 ---
+
 <style>
   .title {
     font-size: 2.5rem;
@@ -28,6 +30,11 @@ const orderedCourses = courses.sort((a, b) => {
 </style>
 <BaseLayout>
   <Cover
+    linkProps={{
+      href: WHATSAPP_LINK,
+      target: "_blank",
+      rel: "noopener noreferrer",
+    }}
     slot="full-width-top"
     title="ISCRIZIONI APERTE"
     subtitle="A.A 2026-2027"
@@ -70,5 +77,13 @@ const orderedCourses = courses.sort((a, b) => {
       ))
     }
   </ul>
-  <Cover slot="full-width" title="Incontra il Team">Scopri chi siamo</Cover>
+  <Cover
+    slot="full-width"
+    title="Incontra il Team"
+    linkProps={{
+      href: "/team",
+    }}
+  >
+    Scopri chi siamo
+  </Cover>
 </BaseLayout>

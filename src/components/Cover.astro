@@ -1,10 +1,12 @@
 ---
+import type { HTMLAttributes } from "astro/types";
 import Button from "./LinkButton.astro";
 interface Props {
   title?: string;
   subtitle?: string;
+  linkProps:  HTMLAttributes<"a">
 }
-const { title, subtitle } = Astro.props;
+const { title, subtitle, linkProps } = Astro.props;
 ---
 
 <style>
@@ -38,5 +40,11 @@ const { title, subtitle } = Astro.props;
 <section class="cover">
   {title && <h3 class="cover-title">{title}</h3>}
   {subtitle && <p class="cover-subtitle">{subtitle}</p>}
-  <Button type="foreground"><slot /></Button>
+  {
+    linkProps && (
+      <Button {...linkProps} type="foreground">
+        <slot />
+      </Button>
+    )
+  }
 </section>

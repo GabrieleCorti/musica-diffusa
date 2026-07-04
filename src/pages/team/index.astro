@@ -3,6 +3,7 @@ import { getCollection } from "astro:content";
 import HaloLayout from "../../layouts/PageLayoutWithHalo.astro";
 import TeamBaloon from "../../components/TeamBaloon.astro";
 import Cover from "../../components/Cover.astro";
+import { WHATSAPP_LINK } from "../../config/contact";
 
 const teachers = await getCollection("docenti");
 const images = import.meta.glob<{ default: ImageMetadata }>(
@@ -138,11 +139,21 @@ const images = import.meta.glob<{ default: ImageMetadata }>(
       }
     </div>
   </div>
-  <Cover slot="full-width-halo" title="Vuoi studiare con noi?">Contattaci</Cover
+  <Cover
+    slot="full-width-halo"
+    title="Vuoi studiare con noi?"
+    linkProps={{
+      href: WHATSAPP_LINK,
+      target: "_blank",
+      rel: "noopener noreferrer"
+    }}
   >
+    Contattaci
+  </Cover>
 </HaloLayout>
 <script>
-  const titleContainer = document.querySelector<HTMLElement>(".title-container");
+  const titleContainer =
+    document.querySelector<HTMLElement>(".title-container");
   const titleGlow = document.querySelector<HTMLElement>(".title-glow");
   const cover = document.querySelector<HTMLElement>(".cover");
 
@@ -186,7 +197,9 @@ const images = import.meta.glob<{ default: ImageMetadata }>(
   window.addEventListener("scroll", onScroll, { passive: true });
   onScroll();
 
-  const links = document.querySelectorAll<HTMLElement>(".scattered .teacher-link");
+  const links = document.querySelectorAll<HTMLElement>(
+    ".scattered .teacher-link",
+  );
 
   const observer = new IntersectionObserver(
     (entries) => {
@@ -199,7 +212,7 @@ const images = import.meta.glob<{ default: ImageMetadata }>(
         }
       });
     },
-    { threshold: 0.1 }
+    { threshold: 0.1 },
   );
 
   links.forEach((link, i) => {

@@ -4,6 +4,7 @@ import { Image } from "astro:assets";
 import BaseLayout from "../../layouts/PageLayout.astro";
 import Cover from "../../components/Cover.astro";
 import Button from "../../components/LinkButton.astro";
+import { WHATSAPP_LINK } from "../../config/contact";
 export async function getStaticPaths() {
   const course = await getCollection("corsi");
   return course.map((entry) => ({
@@ -50,7 +51,8 @@ const instrumentPic = images[pic];
     border-radius: 999px;
     width: 380px;
     height: 380px;
-    box-shadow: 0px 0px 62px 0px color-mix(in srgb,var(--color-primary) 85%,transparent);
+    box-shadow: 0px 0px 62px 0px
+      color-mix(in srgb, var(--color-primary) 85%, transparent);
     margin-top: 4rem;
   }
 
@@ -58,7 +60,7 @@ const instrumentPic = images[pic];
     width: 100%;
     text-align: center;
   }
-  
+
   @media screen and (min-width: 768px) {
     .content {
       display: flex;
@@ -101,7 +103,15 @@ const instrumentPic = images[pic];
       />
     </div>
   </div>
-  <Cover slot="full-width" title="Sei pronto ad iniziare il tuo percorso"
-    >Richiedi informazioni</Cover
+  <Cover
+    slot="full-width"
+    title="Sei pronto ad iniziare il tuo percorso"
+    linkProps={{
+      href: WHATSAPP_LINK,
+      target: "_blank",
+      rel: "noopener noreferrer"
+    }}
   >
+    Richiedi informazioni
+  </Cover>
 </BaseLayout>
