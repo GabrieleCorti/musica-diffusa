@@ -5,10 +5,12 @@ import MapPin from "@lucide/astro/icons/map-pin";
 export interface Props {
   name: string;
   image: ImageMetadata;
+  address?: string;
   class?: string;
 }
 
-const { name, image, class: customClass } = Astro.props;
+const { name, image, address, class: customClass } = Astro.props;
+const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(address ?? name)}`;
 ---
 
 <style>
@@ -68,14 +70,26 @@ const { name, image, class: customClass } = Astro.props;
     font-weight: 500;
     color: var(--color-foreground);
   }
+
+  .location-card-link {
+    display: block;
+  }
 </style>
 
-<div class:list={["location-card", customClass]}>
-  <div class="img-wrapper">
-    <Image src={image} alt={`Sede di ${name}`} width={290} height={290} />
+<a
+  href={mapsUrl}
+  target="_blank"
+  rel="noopener noreferrer"
+  class="location-card-link"
+  aria-label={`Apri la sede di ${name} su Google Maps`}
+>
+  <div class:list={["location-card", customClass]}>
+    <div class="img-wrapper">
+      <Image src={image} alt={`Sede di ${name}`} width={290} height={290} />
+    </div>
+    <div class="badge">
+      <MapPin class="badge-icon" />
+      <span class="badge-label">{name}</span>
+    </div>
   </div>
-  <div class="badge">
-    <MapPin class="badge-icon" />
-    <span class="badge-label">{name}</span>
-  </div>
-</div>
+</a>

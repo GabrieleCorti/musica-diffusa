@@ -2,7 +2,7 @@
 import LocationCard from "./LocationCard.astro";
 
 export interface Props {
-  locations: { name: string; image: ImageMetadata }[];
+  locations: { name: string; image: ImageMetadata; address?: string }[];
 }
 
 const { locations } = Astro.props;
@@ -36,7 +36,11 @@ const { locations } = Astro.props;
     {
       locations.map((location) => (
         <li>
-          <LocationCard name={location.name} image={location.image} />
+          <LocationCard
+            name={location.name}
+            image={location.image}
+            address={location.address}
+          />
         </li>
       ))
     }
