@@ -4,10 +4,11 @@ import { Image } from "astro:assets";
 export interface Props {
   title: string;
   image: ImageMetadata;
+  href: string;
   isGordon?: boolean;
 }
 
-const { title, image, isGordon } = Astro.props;
+const { title, image, href, isGordon } = Astro.props;
 ---
 
 <style>
@@ -19,6 +20,9 @@ const { title, image, isGordon } = Astro.props;
     align-items: center;
     justify-content: space-between;
     border-bottom: 1px solid var(--color-border);
+    text-decoration: none;
+    cursor: none;
+    position: relative;
   }
 
   .label {
@@ -38,6 +42,16 @@ const { title, image, isGordon } = Astro.props;
     font-family: var(--text-serif);
     color: var(--color-foreground);
     font-weight: 700;
+    display: inline-block;
+    background-image: linear-gradient(var(--color-primary), var(--color-primary));
+    background-repeat: no-repeat;
+    background-size: 0% 2px;
+    background-position: left bottom;
+    transition: background-size 0.4s ease;
+  }
+
+  .course-hero:hover .title {
+    background-size: 100% 2px;
   }
 
   .img-wrapper {
@@ -54,9 +68,42 @@ const { title, image, isGordon } = Astro.props;
     height: 100%;
     object-fit: cover;
   }
+
+  .popup {
+    position: fixed;
+    pointer-events: none;
+    background-color: var(--color-primary);
+    color: var(--color-foreground);
+    border-radius: 6px;
+    padding: 0.75rem 1rem;
+    font-weight: 600;
+    font-family: var(--text-body);
+    font-size: 1rem;
+    white-space: nowrap;
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.85);
+    transition: opacity 0.35s ease, transform 0.35s ease;
+    box-shadow: 0 0 16px 2px rgba(190, 35, 58, 0.3), 0 0 50px 12px rgba(190, 35, 58, 0.1);
+    animation: glow-pulse 2s ease-in-out infinite;
+    z-index: 1000;
+  }
+
+  .popup.visible {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+
+  @keyframes glow-pulse {
+    0%, 100% {
+      box-shadow: 0 0 16px 2px rgba(190, 35, 58, 0.3), 0 0 50px 12px rgba(190, 35, 58, 0.1);
+    }
+    50% {
+      box-shadow: 0 0 22px 4px rgba(190, 35, 58, 0.5), 0 0 70px 16px rgba(190, 35, 58, 0.18);
+    }
+  }
 </style>
 
-<div class="course-hero">
+<a class="course-hero" href={href}>
   <div>
     <p class="label">Corso</p>
     <h2 class="title">{title}</h2>
@@ -65,4 +112,19 @@ const { title, image, isGordon } = Astro.props;
   <div class="img-wrapper">
     <Image src={image} alt={`Foto del corso di ${title}`} width={290} height={290} />
   </div>
-</div>
+  <span class="popup" data-popup>Scopri il corso &rarr;</span>
+</a>
+
+<script>
+  document.querySelectorAll<HTMLAnchorElement>(".course-hero").forEach((hero) => {
+    const popup = hero.querySelector<HTMLSpanElement>("[data-popup]");
+    if (!popup) return;
+
+    hero.addEventListener("mouseenter", () => popup.classList.add("visible"));
+    hero.addEventListener("mouseleave", () => popup.classList.remove("visible"));
+    hero.addEventListener("mousemove", (e) => {
+      popup.style.left = `${e.clientX}px`;
+      popup.style.top = `${e.clientY}px`;
+    });
+  });
+</script>
