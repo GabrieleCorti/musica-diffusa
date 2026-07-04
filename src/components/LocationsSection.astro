@@ -9,7 +9,11 @@ const { locations } = Astro.props;
 ---
 
 <style>
+  .locations-section {
+    padding: 5rem 1.5rem;
+  }
   .title {
+    padding-left: calc(calc((100% - var(--max-content-w)) / 2) - 1.5rem);
     font-size: 2.5rem;
     margin-bottom: 2.5rem;
   }

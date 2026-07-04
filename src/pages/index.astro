@@ -1,6 +1,8 @@
 ---
 import BaseLayout from "../layouts/PageLayout.astro";
 import CourseHero from "../components/CourseHero.astro";
+import LocationsSection from "../components/LocationsSection.astro";
+import Cover from "../components/Cover.astro";
 import { getCollection } from "astro:content";
 const images = import.meta.glob<{ default: ImageMetadata }>(
   "/src/assets/docenti/*.{jpg,jpeg,png,webp,avif}",
@@ -19,9 +21,41 @@ const orderedCourses = courses.sort((a, b) => {
   return a.data.titolo.localeCompare(b.data.titolo);
 });
 ---
-
+<style>
+  .title {
+    font-size: 2.5rem;
+  }
+</style>
 <BaseLayout>
-  <h1>Astro</h1>
+  <Cover
+    slot="full-width-top"
+    title="ISCRIZIONI APERTE"
+    subtitle="A.A 2026-2027"
+  >
+    Contattaci
+  </Cover>
+  <LocationsSection
+    slot="full-width-top"
+    locations={[
+      {
+        name: "Pessano",
+        image: images["/src/assets/docenti/andrea-tremolada.jpg"].default,
+      },
+      {
+        name: "Pessano",
+        image: images["/src/assets/docenti/andrea-tremolada.jpg"].default,
+      },
+      {
+        name: "Pessano",
+        image: images["/src/assets/docenti/andrea-tremolada.jpg"].default,
+      },
+      {
+        name: "Pessano",
+        image: images["/src/assets/docenti/andrea-tremolada.jpg"].default,
+      },
+    ]}
+  />
+  <h2 class="title">I Nostri Corsi</h2>
   <ul>
     {
       orderedCourses.map((course) => (
@@ -36,5 +70,5 @@ const orderedCourses = courses.sort((a, b) => {
       ))
     }
   </ul>
-  <div style="height: 4000px;"></div>
+  <Cover slot="full-width" title="Incontra il Team">Scopri chi siamo</Cover>
 </BaseLayout>
