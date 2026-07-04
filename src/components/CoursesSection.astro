@@ -1,0 +1,45 @@
+---
+import type { CollectionEntry } from "astro:content";
+import CourseHero from "./CourseHero.astro";
+
+export interface Props {
+  courses: CollectionEntry<"corsi">[];
+  images: Record<string, { default: ImageMetadata }>;
+}
+
+const { courses, images } = Astro.props;
+
+const orderedCourses = courses.sort((a, b) => {
+  const aIsGordon = a.data.titolo.toLocaleLowerCase().includes("gordon");
+  const bIsGordon = b.data.titolo.toLocaleLowerCase().includes("gordon");
+  if (aIsGordon && !bIsGordon) {
+    return 1;
+  }
+  if (!aIsGordon && bIsGordon) {
+    return -1;
+  }
+  return a.data.titolo.localeCompare(b.data.titolo);
+});
+---
+
+<style>
+  .title {
+    font-size: 2.5rem;
+  }
+</style>
+
+<h2 class="title">I Nostri Corsi</h2>
+<ul>
+  {
+    orderedCourses.map((course) => (
+      <li>
+        <CourseHero
+          title={course.data.titolo}
+          image={images[course.data.pic].default}
+          href={`/corsi/${course.slug}`}
+          isGordon={course.data.titolo.toLocaleLowerCase().includes("gordon")}
+        />
+      </li>
+    ))
+  }
+</ul>

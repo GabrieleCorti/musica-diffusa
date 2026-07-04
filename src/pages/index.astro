@@ -1,6 +1,6 @@
 ---
 import BaseLayout from "../layouts/PageLayout.astro";
-import CourseHero from "../components/CourseHero.astro";
+import CoursesSection from "../components/CoursesSection.astro";
 import LocationsSection from "../components/LocationsSection.astro";
 import Cover from "../components/Cover.astro";
 import { getCollection } from "astro:content";
@@ -10,24 +10,8 @@ const images = import.meta.glob<{ default: ImageMetadata }>(
   { eager: true },
 );
 const courses = await getCollection("corsi");
-const orderedCourses = courses.sort((a, b) => {
-  const aIsGordon = a.data.titolo.toLocaleLowerCase().includes("gordon");
-  const bIsGordon = b.data.titolo.toLocaleLowerCase().includes("gordon");
-  if (aIsGordon && !bIsGordon) {
-    return 1;
-  }
-  if (!aIsGordon && bIsGordon) {
-    return -1;
-  }
-  return a.data.titolo.localeCompare(b.data.titolo);
-});
 ---
 
-<style>
-  .title {
-    font-size: 2.5rem;
-  }
-</style>
 <BaseLayout>
   <Cover
     linkProps={{
@@ -62,21 +46,7 @@ const orderedCourses = courses.sort((a, b) => {
       },
     ]}
   />
-  <h2 class="title">I Nostri Corsi</h2>
-  <ul>
-    {
-      orderedCourses.map((course) => (
-        <li>
-          <CourseHero
-            title={course.data.titolo}
-            image={images[course.data.pic].default}
-            href={`/corsi/${course.slug}`}
-            isGordon={course.data.titolo.toLocaleLowerCase().includes("gordon")}
-          />
-        </li>
-      ))
-    }
-  </ul>
+  <CoursesSection courses={courses} images={images} />
   <Cover
     slot="full-width"
     title="Incontra il Team"
