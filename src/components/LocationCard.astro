@@ -1,0 +1,81 @@
+---
+import { Image } from "astro:assets";
+import MapPin from "@lucide/astro/icons/map-pin";
+
+export interface Props {
+  name: string;
+  image: ImageMetadata;
+  class?: string;
+}
+
+const { name, image, class: customClass } = Astro.props;
+---
+
+<style>
+  .location-card {
+    position: relative;
+    width: 100%;
+    max-width: 290px;
+    aspect-ratio: 1;
+  }
+
+  .img-wrapper {
+    width: 100%;
+    height: 100%;
+    border-radius: 999px;
+    overflow: hidden;
+    border: 1px solid var(--color-primary);
+  }
+
+  .img-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: grayscale(1);
+    transition: filter 0.3s ease;
+  }
+
+  .location-card:hover .img-wrapper img {
+    filter: grayscale(0);
+  }
+
+  .badge {
+    position: absolute;
+    left: -0.5rem;
+    bottom: 0.25rem;
+    display: flex;
+    align-items: center;
+    gap: 0.375rem;
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    background-color: rgba(24, 24, 24, 0.55);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    white-space: nowrap;
+  }
+
+  .badge-icon {
+    color: var(--color-primary);
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
+  }
+
+  .badge-label {
+    font-family: var(--text-body);
+    font-size: 1.125rem;
+    font-weight: 500;
+    color: var(--color-foreground);
+  }
+</style>
+
+<div class:list={["location-card", customClass]}>
+  <div class="img-wrapper">
+    <Image src={image} alt={`Sede di ${name}`} width={290} height={290} />
+  </div>
+  <div class="badge">
+    <MapPin class="badge-icon" />
+    <span class="badge-label">{name}</span>
+  </div>
+</div>

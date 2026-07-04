@@ -1,0 +1,40 @@
+---
+import LocationCard from "./LocationCard.astro";
+
+export interface Props {
+  locations: { name: string; image: ImageMetadata }[];
+}
+
+const { locations } = Astro.props;
+---
+
+<style>
+  .title {
+    font-size: 2.5rem;
+    margin-bottom: 2.5rem;
+  }
+
+  .locations-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+
+  .locations-list li {
+    flex: 1 1 220px;
+    max-width: 290px;
+  }
+</style>
+
+<section class="locations-section">
+  <h2 class="title">Le Sedi</h2>
+  <ul class="locations-list">
+    {
+      locations.map((location) => (
+        <li>
+          <LocationCard name={location.name} image={location.image} />
+        </li>
+      ))
+    }
+  </ul>
+</section>
