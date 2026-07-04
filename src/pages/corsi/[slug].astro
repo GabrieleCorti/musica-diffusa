@@ -90,7 +90,14 @@ const instrumentPic = images[pic];
       <p class="title">CORSO</p>
       <h1>{titolo}</h1>
       <p class="description">{body}</p>
-      <Button class="responsive-btn">Contattaci</Button>
+      <Button
+        class="responsive-btn"
+        href={WHATSAPP_LINK}
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        Contattaci
+      </Button>
     </div>
     <div class="img-wrapper">
       <Image
@@ -109,7 +116,7 @@ const instrumentPic = images[pic];
     linkProps={{
       href: WHATSAPP_LINK,
       target: "_blank",
-      rel: "noopener noreferrer"
+      rel: "noopener noreferrer",
     }}
   >
     Richiedi informazioni
