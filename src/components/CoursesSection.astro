@@ -27,19 +27,20 @@ const orderedCourses = courses.sort((a, b) => {
     font-size: 2.5rem;
   }
 </style>
-
-<h2 class="title">I Nostri Corsi</h2>
-<ul>
-  {
-    orderedCourses.map((course) => (
-      <li>
-        <CourseHero
-          title={course.data.titolo}
-          image={images[course.data.pic].default}
-          href={`/corsi/${course.slug}`}
-          isGordon={course.data.titolo.toLocaleLowerCase().includes("gordon")}
-        />
-      </li>
-    ))
-  }
-</ul>
+<section id="courses-section">
+  <h2 class="title">I Nostri Corsi</h2>
+  <ul>
+    {
+      orderedCourses.map((course) => (
+        <li>
+          <CourseHero
+            title={course.data.titolo}
+            image={images[course.data.pic].default}
+            href={`/corsi/${course.slug}`}
+            isGordon={course.data.titolo.toLocaleLowerCase().includes("gordon")}
+          />
+        </li>
+      ))
+    }
+  </ul>
+</section>
