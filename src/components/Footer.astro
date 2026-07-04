@@ -2,6 +2,7 @@
 import Link from "./Link.astro";
 import Image from "astro/components/Image.astro";
 import logo from "../assets/logo.png";
+const pathname = Astro.url.pathname;
 const currentYear = new Date().getFullYear();
 ---
 
@@ -92,7 +93,7 @@ const currentYear = new Date().getFullYear();
       </li>
 
       <li></li>
-      <li><Link href={`/corsi`} class="bottom-nav-link">Corsi</Link></li>
+      <li><Link href={pathname === "/" ? "#courses-section" : "/#courses-section"} class="bottom-nav-link">Corsi</Link></li>
       <li><Link href={`/corsi/chitarra`} class="bottom-nav-link">Chitarra</Link></li>
 
       <li></li>
