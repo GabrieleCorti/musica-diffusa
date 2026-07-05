@@ -35,19 +35,29 @@ const currentYear = new Date().getFullYear();
 </style>
 <nav class="top-nav">
   <div class="max-content-w nav-content">
-    <Image
-      fetchpriority="high"
-      loading="eager"
-      src={logo}
-      alt="Musica Diffusa logo"
-      height={48}
-      width={48}
-    />
+    <a href="/">
+      <Image
+        fetchpriority="high"
+        loading="eager"
+        src={logo}
+        alt="Musica Diffusa logo"
+        height={48}
+        width={48}
+      />
+    </a>
     <ul class="link-list">
-      <li><Link active={pathname.includes("/news")} href={`/news/${currentYear}`}>News</Link></li>
+      <li>
+        <Link active={pathname.includes("/news")} href={`/news/${currentYear}`}
+          >News</Link>
+      </li>
       <li><Link href={`/statuto`}>Statuto</Link></li>
-      <li><Link active={pathname.includes("/team")} href={`/team`}>Il Team</Link></li>
-      <li><Link href={pathname === "/" ? "#courses-section" : "/#courses-section"}>Corsi</Link></li>
+      <li>
+        <Link active={pathname.includes("/team")} href={`/team`}>Il Team</Link>
+      </li>
+      <li>
+        <Link href={pathname === "/" ? "#courses-section" : "/#courses-section"}
+          >Corsi</Link>
+      </li>
     </ul>
   </div>
 </nav>

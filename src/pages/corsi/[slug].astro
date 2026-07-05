@@ -46,14 +46,35 @@ const instrumentPic = images[pic];
     max-width: 32rem;
   }
   .img-wrapper {
-    overflow: hidden;
-    border: 1px solid var(--color-primary);
+    position: relative;
     border-radius: 999px;
     width: 380px;
     height: 380px;
-    box-shadow: 0px 0px 62px 0px
-      color-mix(in srgb, var(--color-primary) 85%, transparent);
     margin-top: 4rem;
+  }
+
+  .img-wrapper::before {
+    content: "";
+    position: absolute;
+    inset: -2.75rem;
+    border-radius: 999px;
+    background: radial-gradient(
+      circle,
+      var(--color-primary) 0%,
+      color-mix(in srgb, var(--color-primary) 70%, transparent) 45%,
+      transparent 75%
+    );
+    filter: blur(2rem);
+    z-index: -1;
+  }
+
+  .img-wrapper img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border: 1px solid var(--color-primary);
+    border-radius: 999px;
   }
 
   .responsive-btn {
