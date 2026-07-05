@@ -3,6 +3,7 @@ import BaseLayout from "../layouts/PageLayout.astro";
 import CoursesSection from "../components/CoursesSection.astro";
 import LocationsSection from "../components/LocationsSection.astro";
 import Cover from "../components/Cover.astro";
+import Hero from "../components/Hero.astro";
 import { getCollection } from "astro:content";
 import { WHATSAPP_LINK } from "../config/contact";
 const images = import.meta.glob<{ default: ImageMetadata }>(
@@ -13,9 +14,7 @@ const courses = await getCollection("corsi");
 ---
 
 <BaseLayout>
-  <div slot="full-width-top" style="display: flex; align-items: center; justify-content: center; height: 800px;">
-    <h2>Hero placeholder</h2>
-  </div>
+  <Hero slot="full-width-top" />
   <Cover
     linkProps={{
       href: WHATSAPP_LINK,

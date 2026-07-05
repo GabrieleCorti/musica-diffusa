@@ -1,0 +1,95 @@
+---
+import { Image } from "astro:assets";
+import logo from "../assets/logo.png";
+---
+
+<style>
+  .hero {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 5rem 1.5rem;
+    background: radial-gradient(
+      circle at 30% 40%,
+      color-mix(in srgb, var(--color-primary) 14%, var(--color-bg)) 0%,
+      var(--color-bg) 60%
+    );
+    overflow: hidden;
+  }
+  .hero-content {
+    width: 100%;
+    max-width: var(--max-content-w);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2.5rem;
+    text-align: center;
+  }
+  .logo-wrap {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .logo-wrap :global(img) {
+    width: 220px;
+    height: 220px;
+    object-fit: contain;
+    filter: drop-shadow(0 0 40px color-mix(in srgb, var(--color-primary) 45%, transparent));
+  }
+  .hero-title {
+    font-family: var(--text-body);
+    font-weight: 800;
+    font-size: 2rem;
+    line-height: 1.25;
+    color: var(--color-foreground);
+  }
+  .hero-title .accent {
+    color: var(--color-primary);
+  }
+  .hero-title .soft {
+    font-family: var(--text-serif);
+    font-weight: 400;
+    font-style: italic;
+  }
+
+  @media screen and (min-width: 640px) {
+    .hero {
+      padding: 6rem 1.5rem;
+    }
+    .hero-title {
+      font-size: 2.75rem;
+    }
+  }
+
+  @media screen and (min-width: 900px) {
+    .hero-content {
+      flex-direction: row;
+      text-align: left;
+      gap: 4rem;
+    }
+    .hero-title {
+      font-size: 3.25rem;
+    }
+  }
+</style>
+
+<section class="hero">
+  <div class="hero-content">
+    <div class="logo-wrap">
+      <Image
+        fetchpriority="high"
+        loading="eager"
+        src={logo}
+        alt="Musica Diffusa logo"
+        width={220}
+        height={220}
+      />
+    </div>
+    <h1 class="hero-title">
+      Dove la musica si fa <span class="accent">diffusa</span>,<br />
+      la condivisione diventa <span class="soft">futuro</span>
+    </h1>
+  </div>
+</section>
