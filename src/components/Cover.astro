@@ -1,16 +1,19 @@
 ---
 import type { HTMLAttributes } from "astro/types";
+import { Image } from "astro:assets";
 import Button from "./LinkButton.astro";
 interface Props {
   title?: string;
   subtitle?: string;
-  linkProps:  HTMLAttributes<"a">
+  linkProps: HTMLAttributes<"a">;
+  backgroundImage?: ImageMetadata;
 }
-const { title, subtitle, linkProps } = Astro.props;
+const { title, subtitle, linkProps, backgroundImage } = Astro.props;
 ---
 
 <style>
   .cover {
+    position: relative;
     width: 100%;
     height: 426px;
     display: flex;
@@ -20,6 +23,27 @@ const { title, subtitle, linkProps } = Astro.props;
     justify-content: center;
     background: var(--color-primary);
     padding: 0 1.5rem;
+    overflow: hidden;
+  }
+  .cover-bg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 0;
+  }
+  .cover-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.45);
+    z-index: 1;
+  }
+  .cover-title,
+  .cover-subtitle,
+  .cover :global(a) {
+    position: relative;
+    z-index: 2;
   }
   .cover-title {
     font-size: 2.75rem;
@@ -38,6 +62,14 @@ const { title, subtitle, linkProps } = Astro.props;
   }
 </style>
 <section class="cover">
+  {
+    backgroundImage && (
+      <>
+        <Image class="cover-bg" src={backgroundImage} alt="" fit="cover" />
+        <div class="cover-overlay" />
+      </>
+    )
+  }
   {title && <h3 class="cover-title">{title}</h3>}
   {subtitle && <p class="cover-subtitle">{subtitle}</p>}
   {

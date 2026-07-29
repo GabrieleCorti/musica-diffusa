@@ -6,6 +6,7 @@ import SocialLink from "../../components/SocialLink.astro";
 import Cover from "../../components/Cover.astro";
 import Music from "@lucide/astro/icons/music-2";
 import { WHATSAPP_LINK } from "../../config/contact";
+import coverImg from "../../assets/cover/cover_2.png";
 
 export async function getStaticPaths() {
   const teachers = await getCollection("docenti");
@@ -158,6 +159,7 @@ const proPic = images[teacherImage];
     </div>
   </div>
   <Cover
+    backgroundImage={coverImg}
     slot="full-width"
     linkProps={{
       href: WHATSAPP_LINK,
