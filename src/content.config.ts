@@ -19,6 +19,10 @@ const docenti = defineCollection({
     proPic: z.string().refine((val) => val.startsWith("/src/assets/"), {
       message: "L'immagine deve essere in /src/assets/",
     }),
+    instagram: z.string().url().nullable().optional(),
+    youtube: z.string().url().nullable().optional(),
+    website: z.string().url().nullable().optional(),
+    facebook: z.string().url().nullable().optional(),
   }),
 });
 const corsi = defineCollection({

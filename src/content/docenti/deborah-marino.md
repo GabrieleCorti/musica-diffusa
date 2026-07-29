@@ -3,6 +3,7 @@ nome: "Deborah Marino"
 titolo: "Docente"
 strumento: "Canto"
 proPic: "/src/assets/docenti/deborah-marino.png"
+instagram: "https://www.instagram.com/deborahmarinomusic/"
 ---
 Classe 1998, canta da quando ha memoria.
 Inizia a prendere lezioni di canto moderno nella scuola di musica di Cavenago di Brianza, paese dov’è cresciuta, all’età di 10 anni.

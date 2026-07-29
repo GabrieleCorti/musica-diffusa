@@ -21,7 +21,16 @@ export async function getStaticPaths() {
 
 const {
   teacher: {
-    data: { nome, strumento, titolo, proPic: teacherImage },
+    data: {
+      nome,
+      strumento,
+      titolo,
+      proPic: teacherImage,
+      instagram,
+      youtube,
+      website,
+      facebook,
+    },
     body,
   },
 } = Astro.props;
@@ -120,14 +129,24 @@ const proPic = images[teacherImage];
 </style>
 <BaseLayout>
   <div class="content">
-    <aside>
-      <div class="link-wrapper">
-        <SocialLink type="ig" />
-        <SocialLink type="yt" />
-        <SocialLink type="www" />
-        <SocialLink type="fb" />
-      </div>
-    </aside>
+    {(instagram || youtube || website || facebook) && (
+      <aside>
+        <div class="link-wrapper">
+          {instagram && (
+            <SocialLink type="ig" href={instagram} target="_blank" rel="noopener noreferrer" />
+          )}
+          {youtube && (
+            <SocialLink type="yt" href={youtube} target="_blank" rel="noopener noreferrer" />
+          )}
+          {website && (
+            <SocialLink type="www" href={website} target="_blank" rel="noopener noreferrer" />
+          )}
+          {facebook && (
+            <SocialLink type="fb" href={facebook} target="_blank" rel="noopener noreferrer" />
+          )}
+        </div>
+      </aside>
+    )}
     <div>
       <div class="title-wrapper">
         <div class="avatar avatar--glow">
@@ -149,13 +168,23 @@ const proPic = images[teacherImage];
         </div>
       </div>
       <p class="bio max-text-w">{body}</p>
-      <section class="md-social">
-        <p>Social:</p>
-        <SocialLink type="ig" />
-        <SocialLink type="yt" />
-        <SocialLink type="www" />
-        <SocialLink type="fb" />
-      </section>
+      {(instagram || youtube || website || facebook) && (
+        <section class="md-social">
+          <p>Social:</p>
+          {instagram && (
+            <SocialLink type="ig" href={instagram} target="_blank" rel="noopener noreferrer" />
+          )}
+          {youtube && (
+            <SocialLink type="yt" href={youtube} target="_blank" rel="noopener noreferrer" />
+          )}
+          {website && (
+            <SocialLink type="www" href={website} target="_blank" rel="noopener noreferrer" />
+          )}
+          {facebook && (
+            <SocialLink type="fb" href={facebook} target="_blank" rel="noopener noreferrer" />
+          )}
+        </section>
+      )}
     </div>
   </div>
   <Cover
