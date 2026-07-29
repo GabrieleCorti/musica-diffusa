@@ -99,6 +99,11 @@ const { filteredNews, nextYear, prevYear, visibleYears } = Astro.props;
     padding: 3rem 0;
     border-bottom: 1px solid var(--color-border);
   }
+  .empty-state {
+    padding: 3rem 0;
+    text-align: center;
+    color: var(--color-base);
+  }
   .news-navigation {
     margin: 2rem 0;
     width: 100%;
@@ -121,52 +126,61 @@ const { filteredNews, nextYear, prevYear, visibleYears } = Astro.props;
     <p class="second-title">AGGIORNAMENTI</p>
     <h1>News & eventi</h1>
   </div>
-  <ul>
-    {
-      filteredNews.map((item) => (
-        <li class="news-item">
-          <NewsItem
-            src={test}
-            alt={`Locandina evento ${item.data.titolo}`}
-            title={item.data.titolo}
-            content={item.body}
-            date={item.data.data}
-            location={item.data.luogo}
-            time={item.data.ora}
-          />
-        </li>
-      ))
-    }
-  </ul>
-  <nav class="news-navigation">
-    <ul>
-      <li class="pagination">
-        <Chip
-          aria-disabled={!Boolean(prevYear)}
-          icon
-          href={`/news/${prevYear}`}
-        >
-          <Left width={22} height={22} />
-        </Chip>
-      </li>
-      {
-        visibleYears.map((y) => (
+  {
+    filteredNews.length === 0 ? (
+      <p class="empty-state">
+        Non ci sono ancora news per questo periodo. Torna presto a trovarci:
+        nuovi aggiornamenti ed eventi saranno pubblicati a breve!
+      </p>
+    ) : (
+      <ul>
+        {filteredNews.map((item) => (
+          <li class="news-item">
+            <NewsItem
+              src={test}
+              alt={`Locandina evento ${item.data.titolo}`}
+              title={item.data.titolo}
+              content={item.body}
+              date={item.data.data}
+              location={item.data.luogo}
+              time={item.data.ora}
+            />
+          </li>
+        ))}
+      </ul>
+    )
+  }
+  {
+    visibleYears.length > 0 && (
+      <nav class="news-navigation">
+        <ul>
           <li class="pagination">
-            <Chip active={pathname === `/news/${y}`} href={`/news/${y}`}>
-              {y}
+            <Chip
+              aria-disabled={!Boolean(prevYear)}
+              icon
+              href={`/news/${prevYear}`}
+            >
+              <Left width={22} height={22} />
             </Chip>
           </li>
-        ))
-      }
-      <li class="pagination">
-        <Chip
-          aria-disabled={!Boolean(nextYear)}
-          icon
-          href={`/news/${nextYear}`}
-        >
-          <Right width={22} height={22} />
-        </Chip>
-      </li>
-    </ul>
-  </nav>
+          {visibleYears.map((y) => (
+            <li class="pagination">
+              <Chip active={pathname === `/news/${y}`} href={`/news/${y}`}>
+                {y}
+              </Chip>
+            </li>
+          ))}
+          <li class="pagination">
+            <Chip
+              aria-disabled={!Boolean(nextYear)}
+              icon
+              href={`/news/${nextYear}`}
+            >
+              <Right width={22} height={22} />
+            </Chip>
+          </li>
+        </ul>
+      </nav>
+    )
+  }
 </BaseLayout>
