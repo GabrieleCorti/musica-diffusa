@@ -1,0 +1,33 @@
+---
+import BaseLayout from "../layouts/PageLayout.astro";
+import LinkButton from "../components/LinkButton.astro";
+---
+
+<BaseLayout>
+  <section class="not-found">
+    <span class="not-found__code">404</span>
+    <h1>Pagina non trovata</h1>
+    <p class="max-text-w">
+      La pagina che stai cercando non esiste o è stata spostata.
+    </p>
+    <LinkButton href="/" type="primary">Torna alla home</LinkButton>
+  </section>
+</BaseLayout>
+
+<style>
+  .not-found {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 1rem;
+    padding: 6rem 0;
+  }
+  .not-found__code {
+    font-family: var(--text-serif);
+    color: var(--color-primary);
+    font-size: 5rem;
+    line-height: 1;
+    font-weight: 700;
+  }
+</style>
