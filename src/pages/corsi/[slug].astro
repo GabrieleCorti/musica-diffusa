@@ -55,9 +55,9 @@ const isGordon = titolo.toLocaleLowerCase().includes("gordon");
   .img-wrapper {
     position: relative;
     border-radius: 999px;
-    width: 380px;
-    height: 380px;
-    margin-top: 4rem;
+    width: 200px;
+    height: 200px;
+    margin: 4rem auto 0;
   }
 
   .img-wrapper::before {
@@ -89,6 +89,16 @@ const isGordon = titolo.toLocaleLowerCase().includes("gordon");
     text-align: center;
   }
 
+  @media screen and (min-width: 640px) {
+    .responsive-btn {
+      width: fit-content;
+    }
+    .img-wrapper {
+      width: 260px;
+      height: 260px;
+    }
+  }
+
   @media screen and (min-width: 768px) {
     .content {
       display: flex;
@@ -102,13 +112,16 @@ const isGordon = titolo.toLocaleLowerCase().includes("gordon");
     }
 
     .img-wrapper {
-      margin-top: 0rem;
+      margin: 0;
+      width: 300px;
+      height: 300px;
     }
   }
 
-  @media screen and (min-width: 640px) {
-    .responsive-btn {
-      width: fit-content;
+  @media screen and (min-width: 1000px) {
+    .img-wrapper {
+      width: 390px;
+      height: 390px;
     }
   }
 </style>
