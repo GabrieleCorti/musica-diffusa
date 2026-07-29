@@ -16,13 +16,20 @@ const pdfUrl = "/docs/statuto-associazione-culturale-musica-diffusa.pdf";
         height: 100%;
         border: none;
       }
+      .pdf-fallback-link.is-hidden {
+        display: none;
+      }
     </style>
   </head>
   <body>
-    <iframe src={pdfUrl} title="Statuto Associazione Culturale Musica Diffusa">
-      <a href={pdfUrl} target="_blank" rel="noopener noreferrer">
-        Scarica lo statuto in formato PDF
-      </a>
+    <iframe
+      src={pdfUrl}
+      title="Statuto Associazione Culturale Musica Diffusa"
+      onload="document.querySelector('.pdf-fallback-link').classList.add('is-hidden')"
+    >
     </iframe>
+    <a href={pdfUrl} target="_blank" rel="noopener noreferrer" class="pdf-fallback-link">
+        Scarica lo statuto in formato PDF
+    </a>
   </body>
 </html>
