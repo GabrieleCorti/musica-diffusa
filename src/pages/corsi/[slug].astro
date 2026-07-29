@@ -26,6 +26,7 @@ const images = import.meta.glob<{ default: ImageMetadata }>(
   { eager: true },
 );
 const instrumentPic = images[pic];
+const isGordon = titolo.toLocaleLowerCase().includes("gordon");
 ---
 
 <style>
@@ -37,7 +38,13 @@ const instrumentPic = images[pic];
   }
   h1 {
     font-size: 3.75rem;
-    margin-bottom: 2rem;
+    margin-bottom: 0.5rem;
+  }
+  .instructor {
+    font-size: 0.875rem;
+    font-weight: 400;
+    color: var(--color-base);
+    margin-bottom: 1.5rem;
   }
   .description {
     font-size: 1.125rem;
@@ -91,7 +98,7 @@ const instrumentPic = images[pic];
     }
     h1 {
       font-size: 6rem;
-      margin-bottom: 2rem;
+      margin-bottom: 0.5rem;
     }
 
     .img-wrapper {
@@ -110,6 +117,7 @@ const instrumentPic = images[pic];
     <div>
       <p class="title">CORSO</p>
       <h1>{titolo}</h1>
+      {isGordon && <p class="instructor">con Luca Mauri</p>}
       <p class="description">{body}</p>
       <Button
         class="responsive-btn"
