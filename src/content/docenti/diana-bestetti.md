@@ -2,7 +2,7 @@
 nome: "Diana Bestetti"
 strumento: "Canto"
 titolo: "Docente"
-proPic: "/src/assets/docenti/diana-bestetti.jpg"
+proPic: "/src/assets/docenti/diana-bestetti.png"
 ---
 Insegnante di canto moderno, Vocal Coach e Vocal Trainer con 20 anni di esperienza nella formazione vocale individuale e di gruppo, formata nel canto moderno e classico.
 Accompagna alliev3 di ogni età e livello, da3 principianti a3 professionist3 in percorsi personalizzati di crescita tecnica, espressiva e artistica.

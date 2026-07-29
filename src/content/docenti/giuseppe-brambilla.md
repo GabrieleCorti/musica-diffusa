@@ -2,7 +2,7 @@
 nome: "Giuseppe Brambilla"
 strumento: "Batteria"
 titolo: "Presidente"
-proPic: "/src/assets/docenti/giuseppe-brambilla.jpg"
+proPic: "/src/assets/docenti/giuseppe-brambilla.png"
 ---
 Inizia a studiare batteria all’età di 7 anni presso la N.A.M.M. di Milano, sotto la guida di Tullio de Piscopo. Prosegue la sua formazione seguendo corsi con alcuni tra i più rinomati batteristi italiani: Pierfrancesco Tarantino, Maxx Furian e Giovanni Giorgi.
 Dal 2007 insegna batteria presso la Bach Street School di Melzo e il CMT di Cambiago.
