@@ -6,6 +6,8 @@ import Cover from "../components/Cover.astro";
 import Hero from "../components/Hero.astro";
 import { getCollection } from "astro:content";
 import { WHATSAPP_LINK } from "../config/contact";
+import coverImg from "../assets/cover/cover_3.png";
+
 const images = import.meta.glob<{ default: ImageMetadata }>(
   "/src/assets/docenti/*.{jpg,jpeg,png,webp,avif}",
   { eager: true },
@@ -28,6 +30,7 @@ const courses = await getCollection("corsi");
     slot="full-width-top"
     title="ISCRIZIONI APERTE"
     subtitle="A.A 2026-2027"
+    backgroundImage={coverImg}
   >
     Contattaci
   </Cover>

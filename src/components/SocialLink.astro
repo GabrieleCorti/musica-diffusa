@@ -23,8 +23,9 @@ const { type, class: className, ...rest } = Astro.props;
     display: flex;
     justify-content: center;
     align-items: center;
-    transition: color 170ms ease-in-out;
-    transition: color;
+    transition:
+      color 170ms ease-in-out,
+      box-shadow 0.4s ease-in-out;
   }
   .logo {
     width: 1rem;
@@ -33,7 +34,8 @@ const { type, class: className, ...rest } = Astro.props;
   .icon-link:hover {
     border-color: var(--color-primary);
     color: var(--color-primary);
-    transition: color 170ms ease-in-out;
+    box-shadow: 0 0 16px 2px
+      color-mix(in srgb, var(--color-primary) 60%, transparent);
   }
 </style>
 <a {...rest} class:list={["icon-link", rest]}>
