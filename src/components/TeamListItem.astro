@@ -1,0 +1,78 @@
+---
+import { Image } from "astro:assets";
+import Music from "@lucide/astro/icons/music-2";
+
+export interface Props {
+  name: string;
+  proPic: ImageMetadata;
+  href?: string;
+  instrument: string;
+  class?: string;
+}
+const { name, proPic, href, instrument, class: customClass } = Astro.props;
+---
+
+<style>
+  .team-row {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.9rem 0;
+    border-bottom: 1px solid var(--color-border);
+    opacity: 0;
+    translate: 0 20px;
+    transition:
+      opacity 0.6s ease,
+      translate 0.6s ease;
+  }
+  .team-row.visible {
+    opacity: 1;
+    translate: 0 0;
+  }
+  .team-row:last-child {
+    border-bottom: none;
+  }
+  .avatar-sm {
+    --avatar-size: 72px;
+  }
+  .team-row-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+  .teacher-name {
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: var(--color-primary);
+    font-family: var(--text-body);
+  }
+  p {
+    font-size: 1rem;
+    color: var(--color-base);
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+  }
+  .musical-note {
+    color: var(--color-primary);
+    width: 16px;
+    aspect-ratio: 1;
+    flex-shrink: 0;
+  }
+</style>
+<a class="team-row" href={href}>
+  <div class:list={["avatar", "avatar-sm", customClass]}>
+    <Image
+      src={proPic}
+      alt={`Foto profilo di ${name}`}
+      height={144}
+      width={144}
+      fit="cover"
+      position="center"
+    />
+  </div>
+  <div class="team-row-info">
+    <h4 class="teacher-name">{name}</h4>
+    <p><Music class="musical-note" /> {instrument}</p>
+  </div>
+</a>

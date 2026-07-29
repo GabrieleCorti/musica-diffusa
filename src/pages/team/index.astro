@@ -2,6 +2,7 @@
 import { getCollection } from "astro:content";
 import HaloLayout from "../../layouts/PageLayoutWithHalo.astro";
 import TeamBaloon from "../../components/TeamBaloon.astro";
+import TeamMobileList from "../../components/TeamMobileList.astro";
 import Cover from "../../components/Cover.astro";
 import { WHATSAPP_LINK } from "../../config/contact";
 
@@ -10,11 +11,26 @@ const images = import.meta.glob<{ default: ImageMetadata }>(
   "/src/assets/docenti/*.{jpg,jpeg,png,webp,avif}",
   { eager: true },
 );
+
+const teacherItems = teachers.map(({ slug, data: { nome, strumento, proPic } }) => ({
+  name: nome,
+  proPic: images[proPic].default,
+  instrument: strumento,
+  href: `/team/${slug}`,
+}));
 ---
 
 <style>
-  .content {
-    padding-top: calc(100vh + 1.5rem);
+  .desktop-team {
+    display: none;
+  }
+  @media screen and (min-width: 768px) {
+    .content {
+      padding-top: calc(100vh + 1.5rem);
+    }
+    .desktop-team {
+      display: block;
+    }
   }
   .title-container {
     position: fixed;
@@ -26,24 +42,6 @@ const images = import.meta.glob<{ default: ImageMetadata }>(
     align-items: center;
     text-align: center;
     z-index: 10;
-  }
-  .title-glow {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 180vmin;
-    height: 180vmin;
-    background: radial-gradient(
-      circle at center,
-      transparent 0%,
-      transparent 0%,
-      color-mix(in srgb, var(--color-primary) 25%, transparent) 34%,
-      color-mix(in srgb, var(--color-primary) 10%, transparent) 63%,
-      transparent 70%
-    );
-    z-index: 0;
-    pointer-events: none;
   }
   .second-title {
     font-size: 0.875rem;
@@ -120,24 +118,16 @@ const images = import.meta.glob<{ default: ImageMetadata }>(
 </style>
 <HaloLayout>
   <div class="content">
-    <div class="title-container">
-      <p class="second-title">INCONTRA</p>
-      <h1>IL TEAM</h1>
+    <div class="desktop-team">
+      <div class="title-container">
+        <p class="second-title">INCONTRA</p>
+        <h1>IL TEAM</h1>
+      </div>
+      <div class="scattered">
+        {teacherItems.map((teacher) => <TeamBaloon {...teacher} />)}
+      </div>
     </div>
-    <div class="scattered">
-      {
-        teachers.map(({ slug, data: { nome, strumento, proPic } }) => {
-          return (
-            <TeamBaloon
-              name={nome}
-              proPic={images[proPic].default}
-              instrument={strumento}
-              href={`/team/${slug}`}
-            />
-          );
-        })
-      }
-    </div>
+    <TeamMobileList teachers={teacherItems} />
   </div>
   <Cover
     slot="full-width-halo"
@@ -154,34 +144,29 @@ const images = import.meta.glob<{ default: ImageMetadata }>(
 <script>
   const titleContainer =
     document.querySelector<HTMLElement>(".title-container");
-  const titleGlow = document.querySelector<HTMLElement>(".title-glow");
   const cover = document.querySelector<HTMLElement>(".cover");
 
   let pinned = false;
 
   function pin() {
-    if (pinned || !titleContainer || !titleGlow) return;
+    if (pinned || !titleContainer) return;
     pinned = true;
     const scrollY = window.scrollY;
     const centerY = scrollY + window.innerHeight / 2;
     const centerX = document.documentElement.clientWidth / 2;
-    for (const el of [titleContainer, titleGlow]) {
-      el.style.position = "absolute";
-      el.style.top = `${centerY}px`;
-      el.style.left = `${centerX}px`;
-      el.style.transform = "translate(-50%, -50%)";
-    }
+    titleContainer.style.position = "absolute";
+    titleContainer.style.top = `${centerY}px`;
+    titleContainer.style.left = `${centerX}px`;
+    titleContainer.style.transform = "translate(-50%, -50%)";
   }
 
   function unpin() {
-    if (!pinned || !titleContainer || !titleGlow) return;
+    if (!pinned || !titleContainer) return;
     pinned = false;
-    for (const el of [titleContainer, titleGlow]) {
-      el.style.position = "";
-      el.style.top = "";
-      el.style.left = "";
-      el.style.transform = "";
-    }
+    titleContainer.style.position = "";
+    titleContainer.style.top = "";
+    titleContainer.style.left = "";
+    titleContainer.style.transform = "";
   }
 
   function onScroll() {
