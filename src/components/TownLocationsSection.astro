@@ -1,0 +1,95 @@
+---
+import TownLocationCard from "./TownLocationCard.astro";
+
+export interface Props {
+  locations: { name: string; streets: string[] }[];
+}
+
+const { locations } = Astro.props;
+---
+
+<style>
+  .locations-section {
+    padding: 5rem 1.5rem;
+  }
+
+  .locations-content {
+    width: 100%;
+    max-width: var(--max-content-w);
+    margin: 0 auto;
+  }
+
+  .title {
+    font-size: 2.5rem;
+    margin-bottom: 2.5rem;
+    font-family: var(--text-body);
+  }
+
+  .locations-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+
+  .locations-grid li {
+    padding: 1.75rem 0;
+    border-top: 1px solid var(--color-border);
+  }
+
+  .locations-grid li:first-child {
+    border-top: none;
+  }
+
+  @media screen and (min-width: 768px) {
+    .locations-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .locations-grid li {
+      padding: 1.75rem 2.5rem;
+      border-top: none;
+      border-left: none;
+    }
+
+    .locations-grid li:nth-child(n + 3) {
+      border-top: 1px solid var(--color-border);
+    }
+
+    .locations-grid li:nth-child(2n) {
+      border-left: 1px solid var(--color-border);
+    }
+  }
+
+  @media screen and (min-width: 1024px) {
+    .locations-grid {
+      grid-template-columns: repeat(var(--count), 1fr);
+    }
+
+    .locations-grid li {
+      border-top: none;
+      border-left: 1px solid var(--color-border);
+    }
+
+    .locations-grid li:nth-child(n + 3) {
+      border-top: none;
+    }
+
+    .locations-grid li:first-child {
+      border-left: none;
+    }
+  }
+</style>
+
+<section class="locations-section">
+  <div class="locations-content">
+    <h2 class="title">Le Sedi</h2>
+    <ul class="locations-grid" style={`--count: ${locations.length}`}>
+      {
+        locations.map((location) => (
+          <li>
+            <TownLocationCard name={location.name} streets={location.streets} />
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</section>

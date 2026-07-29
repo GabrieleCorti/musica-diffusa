@@ -1,0 +1,104 @@
+---
+import MapPin from "@lucide/astro/icons/map-pin";
+import ExternalLink from "@lucide/astro/icons/external-link";
+
+export interface Props {
+  name: string;
+  streets: string[];
+  class?: string;
+}
+
+const { name, streets, class: customClass } = Astro.props;
+
+const mapsUrlFor = (street: string) =>
+  `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${street}, ${name}`)}`;
+---
+
+<style>
+  .town-card {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+
+  .town-header {
+    display: flex;
+    align-items: center;
+    gap: 0.625rem;
+    padding-bottom: 1.25rem;
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .town-icon {
+    color: var(--color-primary);
+    width: 22px;
+    height: 22px;
+    flex-shrink: 0;
+  }
+
+  .town-name {
+    font-family: var(--text-serif);
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--color-foreground);
+  }
+
+  .streets-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.85rem;
+  }
+
+  .street-link {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+  }
+
+  .street-label {
+    font-family: var(--text-body);
+    font-size: 1rem;
+    color: var(--color-base);
+    transition: color 0.2s ease;
+  }
+
+  .street-icon {
+    color: var(--color-base);
+    width: 15px;
+    height: 15px;
+    flex-shrink: 0;
+    transition: color 0.2s ease;
+  }
+
+  .street-link:hover .street-label,
+  .street-link:hover .street-icon {
+    color: var(--color-primary);
+  }
+</style>
+
+<div class:list={["town-card", customClass]}>
+  <div class="town-header">
+    <MapPin class="town-icon" />
+    <h3 class="town-name">{name}</h3>
+  </div>
+  <ul class="streets-list">
+    {
+      streets.map((street) => (
+        <li>
+          <a
+            href={mapsUrlFor(street)}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="street-link"
+            aria-label={`Apri ${street}, ${name} su Google Maps`}
+          >
+            <span class="street-label">{street}</span>
+            <ExternalLink class="street-icon" />
+          </a>
+        </li>
+      ))
+    }
+  </ul>
+</div>
