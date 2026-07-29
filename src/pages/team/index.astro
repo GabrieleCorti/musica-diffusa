@@ -144,29 +144,34 @@ const teacherItems = teachers.map(({ slug, data: { nome, strumento, proPic } }) 
 <script>
   const titleContainer =
     document.querySelector<HTMLElement>(".title-container");
+  const titleGlow = document.querySelector<HTMLElement>(".title-glow");
   const cover = document.querySelector<HTMLElement>(".cover");
 
   let pinned = false;
 
   function pin() {
-    if (pinned || !titleContainer) return;
+    if (pinned || !titleContainer || !titleGlow) return;
     pinned = true;
     const scrollY = window.scrollY;
     const centerY = scrollY + window.innerHeight / 2;
     const centerX = document.documentElement.clientWidth / 2;
-    titleContainer.style.position = "absolute";
-    titleContainer.style.top = `${centerY}px`;
-    titleContainer.style.left = `${centerX}px`;
-    titleContainer.style.transform = "translate(-50%, -50%)";
+    for (const el of [titleContainer, titleGlow]) {
+      el.style.position = "absolute";
+      el.style.top = `${centerY}px`;
+      el.style.left = `${centerX}px`;
+      el.style.transform = "translate(-50%, -50%)";
+    }
   }
 
   function unpin() {
-    if (!pinned || !titleContainer) return;
+    if (!pinned || !titleContainer || !titleGlow) return;
     pinned = false;
-    titleContainer.style.position = "";
-    titleContainer.style.top = "";
-    titleContainer.style.left = "";
-    titleContainer.style.transform = "";
+    for (const el of [titleContainer, titleGlow]) {
+      el.style.position = "";
+      el.style.top = "";
+      el.style.left = "";
+      el.style.transform = "";
+    }
   }
 
   function onScroll() {
