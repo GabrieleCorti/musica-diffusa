@@ -63,16 +63,8 @@ const proPic = images[teacherImage];
     border-bottom: 1px solid var(--color-border);
     gap: 2rem;
   }
-  .img-wrapper {
-    max-width: 200px;
-    aspect-ratio: 1;
-    border-radius: 1000px;
-    border: 1px solid var(--color-primary);
-    overflow: hidden;
-    width: min-content;
-
-    -webkit-box-shadow: 0px 0px 35px 5px rgba(190, 35, 58, 0.22);
-    box-shadow: 0px 0px 35px 5px rgba(190, 35, 58, 0.22);
+  .title-wrapper .avatar {
+    --avatar-size: 175px;
   }
   .title {
     font-weight: 500;
@@ -90,7 +82,7 @@ const proPic = images[teacherImage];
   .musical-note {
     color: var(--color-primary);
     width: 14px;
-    aspect-ratio: square;
+    aspect-ratio: 1;
   }
   .bio {
     margin-top: 4rem;
@@ -137,7 +129,7 @@ const proPic = images[teacherImage];
     </aside>
     <div>
       <div class="title-wrapper">
-        <div class="img-wrapper">
+        <div class="avatar avatar--glow">
           <Image
             loading="eager"
             fetchpriority="high"
@@ -145,6 +137,8 @@ const proPic = images[teacherImage];
             alt={`Foto profilo di ${nome}`}
             height={175}
             width={175}
+            fit="cover"
+            position="center"
           />
         </div>
         <div>

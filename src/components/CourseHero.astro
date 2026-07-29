@@ -123,7 +123,13 @@ const { title, image, href, isGordon } = Astro.props;
     {isGordon && <p class="label label-gordon">con Luca Mauri</p>}
   </div>
   <div class="img-wrapper">
-    <Image src={image} alt={`Foto del corso di ${title}`} width={290} height={290} />
+    <Image
+      src={image}
+      alt={`Foto del corso di ${title}`}
+      width={290}
+      height={290}
+      densities={[1, 2]}
+    />
   </div>
   <span class="popup" data-popup>Scopri il corso &rarr;</span>
 </a>
