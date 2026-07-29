@@ -1,0 +1,175 @@
+---
+import Handshake from "@lucide/astro/icons/handshake";
+import Compass from "@lucide/astro/icons/compass";
+---
+
+<style>
+  .about-section {
+    position: relative;
+    overflow: hidden;
+    padding: 7rem 1.5rem;
+    background: var(--color-bg);
+  }
+
+  .about-glow {
+    position: absolute;
+    top: var(--y, 50%);
+    left: var(--x, 50%);
+    transform: translate(-50%, -50%);
+    width: 70vmin;
+    height: 70vmin;
+    border-radius: 50%;
+    background: radial-gradient(
+      circle at center,
+      color-mix(in srgb, var(--color-primary) 16%, transparent) 0%,
+      color-mix(in srgb, var(--color-primary) 7%, transparent) 40%,
+      transparent 70%
+    );
+    filter: blur(70px);
+    opacity: 0;
+    transition:
+      left 500ms ease-out,
+      top 500ms ease-out,
+      opacity 400ms ease-out;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .about-glow.is-visible {
+    opacity: 1;
+  }
+
+  .about-content {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    max-width: var(--max-content-w);
+    margin: 0 auto;
+  }
+
+  .about-columns {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+  }
+
+  .about-col:not(:first-child) {
+    padding-top: 2rem;
+    border-top: 1px solid var(--color-border);
+  }
+
+  .about-header {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 1rem;
+  }
+
+  .about-icon {
+    color: var(--color-primary);
+    width: 26px;
+    height: 26px;
+    flex-shrink: 0;
+  }
+
+  .about-title {
+    font-size: 1.75rem;
+    font-family: var(--text-body);
+  }
+
+  .about-text {
+    font-size: 1rem;
+    line-height: 1.7;
+  }
+
+  @media screen and (min-width: 900px) {
+    .about-section {
+      padding: 9rem 1.5rem;
+    }
+
+    .about-columns {
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+    }
+
+    .about-col:not(:first-child) {
+      padding-top: 0;
+      padding-left: 4rem;
+      border-top: none;
+      border-left: 1px solid var(--color-border);
+    }
+
+    .about-title {
+      font-size: 2rem;
+    }
+
+    .about-icon {
+      width: 30px;
+      height: 30px;
+    }
+  }
+</style>
+
+<section class="about-section">
+  <div class="about-glow"></div>
+  <div class="about-content">
+    <div class="about-columns">
+      <div class="about-col">
+        <div class="about-header">
+          <Handshake class="about-icon" />
+          <h2 class="about-title">Chi siamo</h2>
+        </div>
+        <p class="about-text">
+          L'associazione culturale Musica Diffusa nasce nel 2023, con la
+          finalità di diffondere e valorizzare la cultura e l'educazione
+          musicale creando un nuovo circuito di docenti esperti e preparati in
+          diversi strumenti e ambiti. L'associazione offre la possibilità di una
+          formazione musicale ricca e diversificata, studiata ad hoc per il
+          singolo allievo, stimolando la creatività e l'espressione della
+          musicalità di ciascuno.
+        </p>
+      </div>
+      <div class="about-col">
+        <div class="about-header">
+          <Compass class="about-icon" />
+          <h2 class="about-title">La nostra espressione</h2>
+        </div>
+        <p class="about-text">
+          Costruiamo percorsi musicali su misura per ogni età: corsi di
+          chitarra, canto, pianoforte/tastiere, basso, batteria, personalizzati
+          per bambini, ragazzi e adulti, con insegnanti qualificati in diversi
+          generi musicali. Corsi Gordon 0-12 anni, corsi di Ear Training per
+          allenare l’ascolto e vivere la musica in modo completo, corsi di
+          musica d’insieme per condividere la propria passione. Musica che si
+          diffonde, passione che si condivide: cresci qui, suona ovunque!
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  function setupAboutGlow() {
+    const section = document.querySelector<HTMLElement>(".about-section");
+    const glow = section?.querySelector<HTMLElement>(".about-glow");
+    if (!section || !glow) return;
+
+    section.addEventListener("pointermove", (event) => {
+      const rect = section.getBoundingClientRect();
+      const x = ((event.clientX - rect.left) / rect.width) * 100;
+      const y = ((event.clientY - rect.top) / rect.height) * 100;
+      glow.style.setProperty("--x", `${x}%`);
+      glow.style.setProperty("--y", `${y}%`);
+    });
+
+    section.addEventListener("pointerenter", () => {
+      glow.classList.add("is-visible");
+    });
+
+    section.addEventListener("pointerleave", () => {
+      glow.classList.remove("is-visible");
+    });
+  }
+
+  document.addEventListener("DOMContentLoaded", setupAboutGlow);
+</script>

@@ -4,6 +4,7 @@ import CoursesSection from "../components/CoursesSection.astro";
 import TownLocationsSection from "../components/TownLocationsSection.astro";
 import Cover from "../components/Cover.astro";
 import Hero from "../components/Hero.astro";
+import AboutSection from "../components/AboutSection.astro";
 import { getCollection } from "astro:content";
 import { WHATSAPP_LINK } from "../config/contact";
 import coverImg from "../assets/cover/cover_3.png";
@@ -17,6 +18,7 @@ const courses = await getCollection("corsi");
 
 <BaseLayout>
   <Hero slot="full-width-top" />
+  <AboutSection slot="full-width-top" />
   <Cover
     linkProps={{
       href: WHATSAPP_LINK,
