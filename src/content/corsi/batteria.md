@@ -2,4 +2,4 @@
 titolo: "Batteria"
 pic: "/src/assets/docenti/andrea-tremolada.jpg"
 ---
-Il corso di chitarra di Musica Diffusa è progettato per accompagnarti in ogni fase del tuo percorso musicale. Che tu sia un principiante assoluto o un musicista esperto che desidera perfezionare la propria tecnica, i nostri insegnanti qualificati ti offriranno un programma personalizzato. Imparerai le basi della postura, della tecnica delle dita, degli accordi e delle scale, progredendo gradualmente verso stili musicali più complessi come blues, rock, jazz e musica classica.
+Il corso di batteria di Musica Diffusa ti mette al centro del ritmo. Che tu non abbia mai impugnato una bacchetta o sia già un batterista in cerca di nuovi stimoli, i nostri insegnanti costruiranno un programma calibrato sulle tue esigenze. Svilupperai coordinazione, tecnica, senso del tempo, mettendoti poi alla prova suonando la musica dei artisti del cuore.

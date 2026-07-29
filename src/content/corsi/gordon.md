@@ -1,5 +1,5 @@
 ---
-titolo: "Corso Gordon"
+titolo: "Corsi Gordon"
 pic: "/src/assets/docenti/andrea-tremolada.jpg"
 ---
-Il corso di chitarra di Musica Diffusa è progettato per accompagnarti in ogni fase del tuo percorso musicale. Che tu sia un principiante assoluto o un musicista esperto che desidera perfezionare la propria tecnica, i nostri insegnanti qualificati ti offriranno un programma personalizzato. Imparerai le basi della postura, della tecnica delle dita, degli accordi e delle scale, progredendo gradualmente verso stili musicali più complessi come blues, rock, jazz e musica classica.
+I corsi Gordon in Musica Diffusa avvicinano i bambini alla musica fin dai primissimi mesi di vita. Basati sulla Music Learning Theory di Edwin Gordon, partono da un'idea semplice: la musica si impara come si impara a parlare, per immersione e ascolto, molto prima di saperla produrre. Guidati dai nostri insegnanti qualificati, i bambini esplorano canti, melodie e ritmi in tonalità e metri diversi, muovendosi liberamente e rispondendo con i propri tempi. Passo dopo passo, e sempre attraverso la voce, il corpo e il movimento, sviluppano l'audiation: la capacità di pensare e comprendere la musica dall'interno.

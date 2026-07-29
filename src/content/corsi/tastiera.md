@@ -2,4 +2,4 @@
 titolo: "Tastiera"
 pic: "/src/assets/docenti/andrea-tremolada.jpg"
 ---
-Il corso di chitarra di Musica Diffusa è progettato per accompagnarti in ogni fase del tuo percorso musicale. Che tu sia un principiante assoluto o un musicista esperto che desidera perfezionare la propria tecnica, i nostri insegnanti qualificati ti offriranno un programma personalizzato. Imparerai le basi della postura, della tecnica delle dita, degli accordi e delle scale, progredendo gradualmente verso stili musicali più complessi come blues, rock, jazz e musica classica.
+Il corso di tastiera di Musica Diffusa apre le porte a un universo sonoro senza limiti. Che tu sia un principiante assoluto o un pianista che vuole ampliare le proprie possibilità, i nostri insegnanti elaboreranno per te un percorso personalizzato. Partirai dall'impostazione e dall'indipendenza delle mani, per poi affrontare accordi, armonie, accompagnamenti e la scelta dei suoni, esplorando brani e composizioni di generi differenti tra loro.

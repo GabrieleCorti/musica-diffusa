@@ -2,4 +2,4 @@
 titolo: "Canto"
 pic: "/src/assets/docenti/andrea-tremolada.jpg"
 ---
-Il corso di chitarra di Musica Diffusa è progettato per accompagnarti in ogni fase del tuo percorso musicale. Che tu sia un principiante assoluto o un musicista esperto che desidera perfezionare la propria tecnica, i nostri insegnanti qualificati ti offriranno un programma personalizzato. Imparerai le basi della postura, della tecnica delle dita, degli accordi e delle scale, progredendo gradualmente verso stili musicali più complessi come blues, rock, jazz e musica classica.
+Il corso di canto di Musica Diffusa ti guida alla scoperta del tuo strumento più personale: la voce. Che tu voglia muovere i primi passi o dare slancio ad un percorso già avviato, i nostri insegnanti costruiranno con te un percorso su misura. Esplorerai generi diversi come pop, soul, rock, per dare voce alla tua passione.
