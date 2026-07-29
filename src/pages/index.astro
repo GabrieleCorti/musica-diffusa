@@ -10,6 +10,10 @@ const images = import.meta.glob<{ default: ImageMetadata }>(
   "/src/assets/docenti/*.{jpg,jpeg,png,webp,avif}",
   { eager: true },
 );
+const courseImages = import.meta.glob<{ default: ImageMetadata }>(
+  "/src/assets/corsi/*.{jpg,jpeg,png,webp,avif}",
+  { eager: true },
+);
 const courses = await getCollection("corsi");
 ---
 
@@ -48,7 +52,7 @@ const courses = await getCollection("corsi");
       },
     ]}
   />
-  <CoursesSection courses={courses} images={images} />
+  <CoursesSection courses={courses} images={courseImages} />
   <Cover
     slot="full-width"
     title="Incontra il Team"
