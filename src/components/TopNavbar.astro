@@ -2,6 +2,8 @@
 import Link from "../components/Link.astro";
 import { Image } from "astro:assets";
 import logo from "../assets/logo.png";
+import Menu from "@lucide/astro/icons/menu";
+import X from "@lucide/astro/icons/x";
 const pathname = Astro.url.pathname;
 const currentYear = new Date().getFullYear();
 ---
@@ -9,7 +11,7 @@ const currentYear = new Date().getFullYear();
 <style>
   .top-nav {
     position: fixed;
-    z-index: 1000;
+    z-index: 1100;
     top: 0;
     right: 0;
     left: 0;
@@ -31,6 +33,100 @@ const currentYear = new Date().getFullYear();
   }
   a {
     font-weight: 500;
+  }
+
+  /* Hamburger / close button */
+  .nav-toggle {
+    display: none;
+    position: relative;
+    margin-left: auto;
+    width: 2.5rem;
+    height: 2.5rem;
+    padding: 0;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-foreground);
+    transition: color 170ms ease-in-out;
+  }
+  .nav-toggle:hover {
+    color: var(--color-primary);
+  }
+  .nav-toggle :global(svg) {
+    position: absolute;
+    width: 1.75rem;
+    height: 1.75rem;
+    transition:
+      opacity 170ms ease,
+      transform 220ms ease;
+  }
+  .nav-toggle :global(.icon-close) {
+    opacity: 0;
+    transform: rotate(-90deg) scale(0.6);
+  }
+  .nav-toggle[aria-expanded="true"] :global(.icon-open) {
+    opacity: 0;
+    transform: rotate(90deg) scale(0.6);
+  }
+  .nav-toggle[aria-expanded="true"] :global(.icon-close) {
+    opacity: 1;
+    transform: rotate(0) scale(1);
+  }
+
+  /* Full-screen mobile menu */
+  .mobile-menu {
+    position: fixed;
+    inset: 0;
+    z-index: 1050;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2.5rem;
+    background-color: var(--color-bg);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-8px);
+    transition:
+      opacity 220ms ease,
+      transform 220ms ease,
+      visibility 0s linear 220ms;
+  }
+  .mobile-menu[data-open="true"] {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+    transition:
+      opacity 220ms ease,
+      transform 220ms ease,
+      visibility 0s linear 0s;
+  }
+  .mobile-menu ul {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+    list-style: none;
+  }
+  .mobile-menu :global(a) {
+    font-family: var(--text-serif);
+    font-size: 1.75rem;
+  }
+
+  @media screen and (max-width: 768px) {
+    .link-list {
+      display: none;
+    }
+    .nav-toggle {
+      display: flex;
+    }
+  }
+  @media screen and (min-width: 769px) {
+    .mobile-menu {
+      display: none;
+    }
   }
 </style>
 <nav class="top-nav">
@@ -59,5 +155,78 @@ const currentYear = new Date().getFullYear();
           >Corsi</Link>
       </li>
     </ul>
+    <button
+      class="nav-toggle"
+      id="nav-toggle"
+      type="button"
+      aria-expanded="false"
+      aria-controls="mobile-menu"
+      aria-label="Apri il menu di navigazione"
+    >
+      <Menu class="icon-open" />
+      <X class="icon-close" />
+    </button>
   </div>
 </nav>
+
+<div class="mobile-menu" id="mobile-menu" data-open="false">
+  <ul>
+    <li>
+      <Link active={pathname === "/"} href={`/`}>
+        Home
+      </Link>
+    </li>
+    <li>
+      <Link active={pathname.includes("/news")} href={`/news/${currentYear}`}
+        >News</Link>
+    </li>
+    <li><Link href={`/statuto`} target="_blank" rel="noopener noreferrer">Statuto</Link></li>
+    <li>
+      <Link active={pathname.includes("/team")} href={`/team`}>Il Team</Link>
+    </li>
+    <li>
+      <Link href={pathname === "/" ? "#courses-section" : "/#courses-section"}
+        >Corsi</Link>
+    </li>
+  </ul>
+</div>
+
+<script>
+  function setupMobileMenu() {
+    const toggle = document.getElementById("nav-toggle");
+    const menu = document.getElementById("mobile-menu");
+    if (!toggle || !menu) return;
+
+    const close = () => {
+      toggle.setAttribute("aria-expanded", "false");
+      toggle.setAttribute("aria-label", "Apri il menu di navigazione");
+      menu.setAttribute("data-open", "false");
+      document.body.style.overflow = "";
+    };
+    const open = () => {
+      toggle.setAttribute("aria-expanded", "true");
+      toggle.setAttribute("aria-label", "Chiudi il menu di navigazione");
+      menu.setAttribute("data-open", "true");
+      document.body.style.overflow = "hidden";
+    };
+
+    toggle.addEventListener("click", () => {
+      const isOpen = toggle.getAttribute("aria-expanded") === "true";
+      isOpen ? close() : open();
+    });
+
+    menu.querySelectorAll("a").forEach((link) => {
+      link.addEventListener("click", close);
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") close();
+    });
+
+    window.matchMedia("(min-width: 769px)").addEventListener("change", (event) => {
+      if (event.matches) close();
+    });
+  }
+
+  document.addEventListener("DOMContentLoaded", setupMobileMenu);
+</script>
