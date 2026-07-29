@@ -67,6 +67,8 @@ import photo3 from "../assets/hero/hero_3.png";
   }
   .float-photo {
     position: absolute;
+    width: 80px;
+    height: 80px;
     border-radius: 50%;
     overflow: hidden;
     border: 3px solid var(--color-bg);
@@ -75,8 +77,10 @@ import photo3 from "../assets/hero/hero_3.png";
     z-index: 2;
   }
   .float-photo :global(img) {
+    width: 100%;
+    height: 100%;
     object-fit: cover;
-    filter: grayscale(1) contrast(1.05);
+    /* filter: grayscale(1) contrast(1.05); */
   }
   .float-photo.top {
     top: -12%;
@@ -122,6 +126,10 @@ import photo3 from "../assets/hero/hero_3.png";
       width: 280px;
       height: 280px;
     }
+    .float-photo {
+      width: 125px;
+      height: 125px;
+    }
   }
 
   @media screen and (min-width: 900px) {
@@ -143,6 +151,10 @@ import photo3 from "../assets/hero/hero_3.png";
     .disc-cluster {
       width: 320px;
       height: 320px;
+    }
+    .float-photo {
+      width: 140px;
+      height: 140px;
     }
   }
 </style>
