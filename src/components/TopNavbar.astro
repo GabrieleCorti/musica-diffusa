@@ -180,7 +180,12 @@ const currentYear = new Date().getFullYear();
       <Link active={pathname.includes("/news")} href={`/news/${currentYear}`}
         >News</Link>
     </li>
-    <li><Link href={`/statuto`} target="_blank" rel="noopener noreferrer">Statuto</Link></li>
+    <li>
+      <Link
+        href="/docs/statuto-associazione-culturale-musica-diffusa.pdf"
+        download>Statuto</Link
+      >
+    </li>
     <li>
       <Link active={pathname.includes("/team")} href={`/team`}>Il Team</Link>
     </li>
