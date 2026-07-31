@@ -10,7 +10,13 @@ import test from "../../assets/news/test.png";
 
 export async function getStaticPaths() {
   const allNews = await getCollection("news");
-  const years = [...new Set(allNews.map((entry) => entry.id.split("/")[0]))];
+  const currentYear = String(new Date().getFullYear());
+  const years = [
+    ...new Set([
+      ...allNews.map((entry) => entry.id.split("/")[0]),
+      currentYear,
+    ]),
+  ];
 
   const getDataFromYear = (selectedYear: string) =>
     allNews
@@ -140,7 +146,7 @@ const { filteredNews, nextYear, prevYear, visibleYears } = Astro.props;
               src={test}
               alt={`Locandina evento ${item.data.titolo}`}
               title={item.data.titolo}
-              content={item.body}
+              content={item.body ?? ""}
               date={item.data.data}
               location={item.data.luogo}
               time={item.data.ora}
