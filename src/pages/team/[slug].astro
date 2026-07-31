@@ -12,7 +12,7 @@ export async function getStaticPaths() {
   const teachers = await getCollection("docenti");
 
   return teachers.map((entry) => ({
-    params: { slug: entry.slug },
+    params: { slug: entry.id },
     props: {
       teacher: entry,
     },

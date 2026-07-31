@@ -38,7 +38,7 @@ const orderedCourses = courses.sort((a, b) => {
           <CourseHero
             title={course.data.titolo}
             image={images[course.data.pic].default}
-            href={`/corsi/${course.slug}`}
+            href={`/corsi/${course.id}`}
             isGordon={course.data.titolo.toLocaleLowerCase().includes("gordon")}
           />
         </li>

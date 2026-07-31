@@ -8,7 +8,7 @@ import { WHATSAPP_LINK } from "../../config/contact";
 export async function getStaticPaths() {
   const course = await getCollection("corsi");
   return course.map((entry) => ({
-    params: { slug: entry.slug },
+    params: { slug: entry.id },
     props: {
       course: entry,
     },

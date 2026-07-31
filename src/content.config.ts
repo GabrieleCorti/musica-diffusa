@@ -1,8 +1,9 @@
 import { defineCollection } from "astro:content";
+import { glob } from "astro/loaders";
 import { z } from "astro/zod";
 
 const news = defineCollection({
-  type: "content",
+  loader: glob({ pattern: "**/*.md", base: "./src/content/news" }),
   schema: z.object({
     titolo: z.string(),
     luogo: z.string(),
@@ -11,7 +12,7 @@ const news = defineCollection({
   }),
 });
 const docenti = defineCollection({
-  type: "content",
+  loader: glob({ pattern: "*.md", base: "./src/content/docenti" }),
   schema: z.object({
     titolo: z.string(),
     nome: z.string(),
@@ -26,7 +27,7 @@ const docenti = defineCollection({
   }),
 });
 const corsi = defineCollection({
-  type: "content",
+  loader: glob({ pattern: "*.md", base: "./src/content/corsi" }),
   schema: z.object({
     titolo: z.string(),
     pic: z.string().refine((val) => val.startsWith("/src/assets/"), {

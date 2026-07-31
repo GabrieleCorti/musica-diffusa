@@ -12,11 +12,11 @@ const images = import.meta.glob<{ default: ImageMetadata }>(
   { eager: true },
 );
 
-const teacherItems = teachers.map(({ slug, data: { nome, strumento, proPic } }) => ({
+const teacherItems = teachers.map(({ id, data: { nome, strumento, proPic } }) => ({
   name: nome,
   proPic: images[proPic].default,
   instrument: strumento,
-  href: `/team/${slug}`,
+  href: `/team/${id}`,
 }));
 ---
 
