@@ -2,6 +2,13 @@
 import GlobalStyles from "../components/GlobalStyles.astro";
 import Nav from "../components/TopNavbar.astro";
 import Footer from "../components/Footer.astro";
+
+interface Props {
+  title?: string;
+}
+
+const { title } = Astro.props;
+const pageTitle = title ? `${title} | Musica Diffusa` : "Musica Diffusa";
 ---
 
 <style>
@@ -22,7 +29,7 @@ import Footer from "../components/Footer.astro";
     />
     <meta name="viewport" content="width=device-width" />
     <meta name="generator" content={Astro.generator} />
-    <title>Musica Diffusa</title>
+    <title>{pageTitle}</title>
   </head>
   <body>
     <Nav />
