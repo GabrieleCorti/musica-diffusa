@@ -143,6 +143,9 @@ const currentYear = new Date().getFullYear();
     </a>
     <ul class="link-list">
       <li>
+        <Link active={pathname === "/"} href={`/`}>Home</Link>
+      </li>
+      <li>
         <Link active={pathname.includes("/news")} href={`/news/${currentYear}`}
           >News</Link>
       </li>
