@@ -110,6 +110,26 @@ const proPic = images[teacherImage];
     padding-bottom: 5rem;
   }
 
+  @media screen and (max-width: 450px) {
+    .title-wrapper {
+      flex-direction: column;
+      align-items: flex-start;
+      padding: 4rem 0 2rem 0;
+      gap: 1rem;
+    }
+    .title-wrapper .avatar {
+      --avatar-size: 110px;
+    }
+    h1 {
+      font-size: 2rem;
+    }
+    .bio {
+      margin-top: 2rem;
+      font-size: 1rem;
+      line-height: 1.5rem;
+    }
+  }
+
   @media screen and (min-width: 786px) {
     h1 {
       font-size: 4.5rem;
