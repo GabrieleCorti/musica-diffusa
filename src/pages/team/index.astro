@@ -19,13 +19,13 @@ const teacherItems = teachers.map(({ id, data: { nome, strumento, proPic } }) =>
   href: `/team/${id}`,
 }));
 
-const MOBILE_ORDER_PRIORITY = ["giuseppe", "andrea", "diana", "luca"];
+const MOBILE_ORDER_PRIORITY = ["giuseppe", "andrea tremolada", "diana", "luca"];
 
 const mobileTeacherItems = [...teacherItems].sort((a, b) => {
-  const aFirstName = a.name.split(" ")[0].toLowerCase();
-  const bFirstName = b.name.split(" ")[0].toLowerCase();
-  const aPriority = MOBILE_ORDER_PRIORITY.indexOf(aFirstName);
-  const bPriority = MOBILE_ORDER_PRIORITY.indexOf(bFirstName);
+  const aName = a.name.toLowerCase();
+  const bName = b.name.toLowerCase();
+  const aPriority = MOBILE_ORDER_PRIORITY.findIndex((p) => aName.startsWith(p));
+  const bPriority = MOBILE_ORDER_PRIORITY.findIndex((p) => bName.startsWith(p));
 
   if (aPriority !== -1 || bPriority !== -1) {
     if (aPriority === -1) return 1;
